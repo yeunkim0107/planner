@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고등학생 스마트 플래너</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 아이콘 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pretendard / Noto Sans KR 폰트 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- Google Fonts for Vintage Paper Mode -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Batang:wght@400;700&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* ---------------- 테마 1: 오래된 빈티지 종이 (Kraft / Vintage Paper) ---------------- */
+        body.theme-vintage {
+            background-color: #f4eae1;
+            background-image: radial-gradient(#d3c3b4 1px, transparent 1px);
+            background-size: 18px 18px;
+            color: #4a3b32;
+        }
+        body.theme-vintage header {
+            background-color: #e8d9cc !important;
+            border-bottom-color: #d8c4b2 !important;
+        }
+        body.theme-vintage .card-bg {
+            background-color: #fbf7f2 !important;
+            border-color: #e0d0c1 !important;
+            box-shadow: 3px 3px 0px #d3c3b4 !important;
+            border-radius: 12px !important;
+        }
+        body.theme-vintage .badge-bg {
+            background-color: #ecdcd0 !important;
+            color: #6b5344 !important;
+        }
+        body.theme-vintage h1, body.theme-vintage h2, body.theme-vintage h3 {
+            font-family: 'Gowun Batang', serif;
+            color: #382a21;
+        }
+        body.theme-vintage .btn-primary {
+            background-color: #7c5a43 !important;
+            color: #fff !important;
+            box-shadow: 2px 2px 0px #4a3b32 !important;
+            border-radius: 8px !important;
+        }
+
+        /* ---------------- 테마 2: 소프트 아이보리 크림 (Warm Cream) ---------------- */
+        body.theme-cream {
+            background-color: #fbf9f4;
+            color: #433d3c;
+        }
+        body.theme-cream header {
+            background-color: #f5f0e6/90 !important;
+            border-bottom-color: #eae1d2 !important;
+        }
+        body.theme-cream .card-bg {
+            background-color: #ffffff !important;
+            border-color: #eee7d9 !important;
+            box-shadow: 0 10px 25px -5px rgba(210, 195, 170, 0.2) !important;
+            border-radius: 24px !important;
+        }
+        body.theme-cream .badge-bg {
+            background-color: #f3ece0 !important;
+            color: #8c7a6b !important;
+        }
+        body.theme-cream .btn-primary {
+            background-color: #d97706 !important;
+            color: #ffffff !important;
+            border-radius: 16px !important;
+        }
+
+        /* ---------------- 테마 3: 미드나잇 독서실 (Midnight Dark) ---------------- */
+        body.theme-dark {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        body.theme-dark header {
+            background-color: #1e293b/80 !important;
+            border-bottom-color: #334155 !important;
+        }
+        body.theme-dark .card-bg {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+            border-radius: 20px !important;
+        }
+        body.theme-dark .badge-bg {
+            background-color: #334155 !important;
+            color: #94a3b8 !important;
+        }
+        body.theme-dark h1, body.theme-dark h2, body.theme-dark h3, body.theme-dark span, body.theme-dark div {
+            color: #f8fafc;
+        }
+        body.theme-dark .sub-text {
+            color: #94a3b8 !important;
+        }
+        body.theme-dark .btn-primary {
+            background-color: #6366f1 !important;
+            color: #ffffff !important;
+            border-radius: 14px !important;
+        }
+
+        /* ---------------- 테마 4: Y2K 틴에이저 핑크 (Y2K Pink) ---------------- */
+        body.theme-y2k {
+            background-color: #fdf4f8;
+            color: #581c87;
+        }
+        body.theme-y2k header {
+            background-color: #fae8ff !important;
+            border-bottom-color: #f5d0fe !important;
+        }
+        body.theme-y2k .card-bg {
+            background-color: #ffffff !important;
+            border: 2px solid #f472b6 !important;
+            box-shadow: 4px 4px 0px #ec4899 !important;
+            border-radius: 20px !important;
+        }
+        body.theme-y2k .badge-bg {
+            background-color: #fbcfe8 !important;
+            color: #9d174d !important;
+        }
+        body.theme-y2k .btn-primary {
+            background-color: #ec4899 !important;
+            color: #ffffff !important;
+            box-shadow: 3px 3px 0px #831843 !important;
+            border-radius: 14px !important;
+        }
+
+        /* ---------------- 테마 5: 글래스모피즘 (Glassmorphism) ---------------- */
+        body.theme-glass {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #fce7f3 100%);
+            min-h-screen: 100vh;
+            color: #1e1b4b;
+        }
+        body.theme-glass header {
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(16px);
+            border-bottom-color: rgba(255, 255, 255, 0.4) !important;
+        }
+        body.theme-glass .card-bg {
+            background-color: rgba(255, 255, 255, 0.55) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.7) !important;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07) !important;
+            border-radius: 24px !important;
+        }
+        body.theme-glass .badge-bg {
+            background-color: rgba(255, 255, 255, 0.7) !important;
+            color: #4338ca !important;
+        }
+        body.theme-glass .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #a855f7) !important;
+            color: #ffffff !important;
+            border-radius: 16px !important;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+
+        /* Accordion Transition */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-content.active {
+            max-height: 1200px;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="theme-vintage text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <!-- 상단 네비게이션 헤더 -->
+    <header class="sticky top-0 z-30 transition-all border-b border-slate-200/60 bg-white/80 backdrop-blur-xl">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-700 to-amber-900 text-white flex items-center justify-center font-bold text-lg shadow-md">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-base tracking-tight">STUDY PLANNER</h1>
+                        <p class="text-[11px] font-medium sub-text text-slate-400" id="current-date-display">2026년 11월 9일 (월)</p>
+                    </div>
+                </div>
+
+                <!-- 디자인 테마 셀렉터 드롭다운 -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-bold hidden md:inline">🎨 테마 선택:</span>
+                    <select id="theme-selector" onchange="applyTheme(this.value)" class="text-xs bg-white/90 border border-slate-300 rounded-xl px-2.5 py-1.5 font-bold shadow-xs cursor-pointer focus:outline-none">
+                        <option value="vintage">📜 1. 오래된 종이 노트 (선택추천)</option>
+                        <option value="cream">🍦 2. 소프트 아이보리</option>
+                        <option value="dark">🌙 3. 미드나잇 독서실</option>
+                        <option value="y2k">🎀 4. Y2K 틴에이저 핑크</option>
+                        <option value="glass">💎 5. 글래스모피즘 미래형</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 네비게이션 탭 버튼 -->
+            <nav class="flex space-x-1 bg-black/5 p-1 rounded-2xl text-xs font-semibold badge-bg border border-slate-200/50 w-full sm:w-auto justify-center">
+                <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-3.5 py-2 rounded-xl bg-white text-indigo-600 shadow-sm font-bold transition-all duration-200">
+                    <i class="fa-regular fa-calendar-days mr-1.5"></i>월간 달력
+                </button>
+                <button onclick="switchTab('todo')" id="tab-todo" class="tab-btn px-3.5 py-2 rounded-xl transition-all duration-200">
+                    <i class="fa-solid fa-list-check mr-1.5"></i>과목별 할일
+                </button>
+                <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-3.5 py-2 rounded-xl transition-all duration-200">
+                    <i class="fa-solid fa-calendar-week mr-1.5"></i>시간표
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+        <!-- ================= 1. 월간 달력 탭 (디폴트) ================= -->
+        <section id="view-calendar" class="tab-view block space-y-6">
+            <!-- D-Day 영역 -->
+            <div class="btn-primary rounded-3xl p-6 shadow-lg relative overflow-hidden">
+                <div class="flex justify-between items-center mb-4 relative z-10">
+                    <h2 class="font-bold text-base flex items-center tracking-tight text-white">
+                        <i class="fa-solid fa-fire mr-2 text-amber-300"></i> 중요 D-Day
+                    </h2>
+                    <button onclick="openDdayModal()" class="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-xl transition font-medium backdrop-blur-md">
+                        + D-Day 추가
+                    </button>
+                </div>
+                <div id="dday-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 relative z-10">
+                    <!-- D-Day 카드가 JS로 생성됨 -->
+                </div>
+            </div>
+
+            <!-- 달력 컨트롤러 & 메인 달력 -->
+            <div class="card-bg rounded-3xl p-5 sm:p-7 border">
+                <!-- 월 선택 헤더 -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center space-x-3">
+                        <h2 id="calendar-month-year" class="text-xl sm:text-2xl font-extrabold tracking-tight">2026년 11월</h2>
+                        <button onclick="goToToday()" class="text-xs badge-bg px-3 py-1 rounded-lg font-semibold transition hover:opacity-80">
+                            오늘
+                        </button>
+                    </div>
+                    <div class="flex space-x-1.5">
+                        <button onclick="changeMonth(-1)" class="w-9 h-9 rounded-xl border border-slate-300 hover:bg-black/5 flex items-center justify-center transition active:scale-95">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <button onclick="changeMonth(1)" class="w-9 h-9 rounded-xl border border-slate-300 hover:bg-black/5 flex items-center justify-center transition active:scale-95">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 달력 요일 헤더 -->
+                <div class="grid grid-cols-7 gap-1 text-center font-bold text-xs sub-text mb-3">
+                    <div class="text-rose-500">일</div>
+                    <div>월</div>
+                    <div>화</div>
+                    <div>수</div>
+                    <div>목</div>
+                    <div>금</div>
+                    <div class="text-indigo-500">토</div>
+                </div>
+
+                <!-- 달력 그리드 -->
+                <div id="calendar-grid" class="grid grid-cols-7 gap-1.5 sm:gap-2">
+                    <!-- 날짜 셀 JS 생성 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 2. 과목별 할 일 탭 ================= -->
+        <section id="view-todo" class="tab-view hidden space-y-5">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 card-bg p-5 rounded-3xl border">
+                <div>
+                    <h2 class="text-lg font-bold">과목별 할 일</h2>
+                    <p class="text-xs sub-text mt-0.5">과목 카드를 누르면 하단에 입력창 및 완료 상태(◯ △ ✕ ➔) 옵션이 열립니다.</p>
+                </div>
+                <button onclick="openSubjectModal()" class="self-start sm:self-auto px-4 py-2.5 btn-primary text-xs font-semibold transition flex items-center shadow-md">
+                    <i class="fa-solid fa-sliders mr-2"></i>과목 / 색상 설정
+                </button>
+            </div>
+
+            <!-- 과목 및 할 일 목록 (아코디언/스와이프형 스타일) -->
+            <div id="subjects-todo-container" class="space-y-3.5">
+                <!-- 과목별 카드가 Dynamic하게 출력됨 -->
+            </div>
+        </section>
+
+        <!-- ================= 3. 시간표 탭 (학교 & 학원) ================= -->
+        <section id="view-schedule" class="tab-view hidden space-y-6">
+            <!-- 학교 시간표 -->
+            <div class="card-bg rounded-3xl p-5 sm:p-6 border">
+                <div class="flex justify-between items-center mb-5">
+                    <div>
+                        <h2 class="text-base font-bold flex items-center">
+                            <i class="fa-solid fa-school text-amber-600 mr-2"></i>학교 시간표
+                        </h2>
+                        <p class="text-xs sub-text mt-0.5">원하는 교시 셀을 클릭하여 과목을 입력하세요.</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto rounded-2xl border border-black/10">
+                    <table class="w-full text-center border-collapse min-w-[480px]">
+                        <thead>
+                            <tr class="badge-bg text-xs font-bold border-b border-black/10">
+                                <th class="p-3 w-16">교시</th>
+                                <th class="p-3">월</th>
+                                <th class="p-3">화</th>
+                                <th class="p-3">수</th>
+                                <th class="p-3">목</th>
+                                <th class="p-3">금</th>
+                            </tr>
+                        </thead>
+                        <tbody id="school-timetable-body" class="text-xs divide-y divide-black/5">
+                            <!-- 1~7교시 행 JS 생성 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 학원 시간표 -->
+            <div class="card-bg rounded-3xl p-5 sm:p-6 border">
+                <div class="flex justify-between items-center mb-5">
+                    <div>
+                        <h2 class="text-base font-bold flex items-center">
+                            <i class="fa-solid fa-clock text-amber-700 mr-2"></i>학원 / 과외 시간표
+                        </h2>
+                        <p class="text-xs sub-text mt-0.5">수강 일정 및 과외 시간을 자유롭게 추가·수정할 수 있습니다.</p>
+                    </div>
+                    <button onclick="openAcademyModal()" class="px-4 py-2 btn-primary text-xs font-semibold transition">
+                        + 학원 추가
+                    </button>
+                </div>
+                <div id="academy-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    <!-- 학원 카드 목록 JS 생성 -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODALS -->
+    <!-- 과목 편집 모달 -->
+    <div id="modal-subject" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-5 shadow-2xl text-slate-800">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-base">과목 구성 및 색상 지정</h3>
+                <button onclick="closeModal('modal-subject')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+            <div id="subject-manage-list" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                <!-- JS 생성 -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex gap-2">
+                <input type="text" id="new-subject-name" placeholder="새 과목 (예: 정보)" class="flex-1 border rounded-xl px-3 py-2 text-xs bg-slate-50">
+                <input type="color" id="new-subject-color" value="#7c5a43" class="w-9 h-9 rounded-xl cursor-pointer border p-0.5">
+                <button onclick="addNewSubject()" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-semibold">추가</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 미루기 날짜 선택 모달 -->
+    <div id="modal-postpone" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-xs w-full p-6 space-y-4 shadow-2xl text-slate-800">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-base">할 일 미루기</h3>
+                <button onclick="closeModal('modal-postpone')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-500">변경하고자 하는 목표 날짜를 선택해주세요.</p>
+            <input type="date" id="postpone-date-input" class="w-full border rounded-xl p-2.5 text-xs bg-slate-50">
+            <button onclick="confirmPostpone()" class="w-full bg-slate-900 text-white py-2.5 rounded-xl font-semibold text-xs shadow-md">
+                날짜 변경 확정
+            </button>
+        </div>
+    </div>
+
+    <!-- 학원 추가/수정 모달 -->
+    <div id="modal-academy" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-slate-800">
+            <div class="flex justify-between items-center">
+                <h3 id="academy-modal-title" class="font-bold text-base">학원 일정 추가</h3>
+                <button onclick="closeModal('modal-academy')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+            <input type="hidden" id="academy-edit-id">
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-semibold text-slate-600 mb-1">학원 / 과외 이름</label>
+                    <input type="text" id="academy-name" placeholder="예: 대성 수학학원" class="w-full border rounded-xl p-2.5 bg-slate-50">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-600 mb-1">요일 선택</label>
+                    <div class="flex justify-between gap-1" id="academy-days-group">
+                        <button type="button" data-day="월" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">월</button>
+                        <button type="button" data-day="화" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">화</button>
+                        <button type="button" data-day="수" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">수</button>
+                        <button type="button" data-day="목" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">목</button>
+                        <button type="button" data-day="금" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">금</button>
+                        <button type="button" data-day="토" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">토</button>
+                        <button type="button" data-day="일" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">일</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-semibold text-slate-600 mb-1">시작 시간</label>
+                        <input type="time" id="academy-start" class="w-full border rounded-xl p-2 bg-slate-50">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-600 mb-1">종료 시간</label>
+                        <input type="time" id="academy-end" class="w-full border rounded-xl p-2 bg-slate-50">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-600 mb-1">태그 색상</label>
+                    <input type="color" id="academy-color" value="#7c5a43" class="w-full h-8 rounded-xl cursor-pointer border p-0.5 bg-white">
+                </div>
+            </div>
+            <button onclick="saveAcademy()" class="w-full bg-slate-900 text-white py-2.5 rounded-xl font-semibold text-xs shadow-md">
+                저장하기
+            </button>
+        </div>
+    </div>
+
+    <!-- D-Day 추가 모달 -->
+    <div id="modal-dday" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-xs w-full p-6 space-y-4 shadow-2xl text-slate-800">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-base">D-Day 추가</h3>
+                <button onclick="closeModal('modal-dday')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-semibold text-slate-600 mb-1">일정 / 목표 명칭</label>
+                    <input type="text" id="dday-title" placeholder="예: 2학기 기말고사" class="w-full border rounded-xl p-2.5 bg-slate-50">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-600 mb-1">목표 날짜</label>
+                    <input type="date" id="dday-date" class="w-full border rounded-xl p-2.5 bg-slate-50">
+                </div>
+            </div>
+            <button onclick="saveDday()" class="w-full bg-slate-900 text-white py-2.5 rounded-xl font-semibold text-xs shadow-md">
+                등록하기
+            </button>
+        </div>
+    </div>
+
+    <!-- 학교 시간표 셀 편집 모달 -->
+    <div id="modal-school-cell" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-xs w-full p-6 space-y-4 shadow-2xl text-slate-800">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-base">시간표 입력</h3>
+                <button onclick="closeModal('modal-school-cell')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+            <input type="hidden" id="cell-day-index">
+            <input type="hidden" id="cell-period-index">
+            <div>
+                <input type="text" id="cell-subject-name" placeholder="과목명 (예: 수학)" class="w-full border rounded-xl p-2.5 text-xs bg-slate-50">
+            </div>
+            <button onclick="saveSchoolCell()" class="w-full bg-slate-900 text-white py-2.5 rounded-xl font-semibold text-xs shadow-md">
+                저장
+            </button>
+        </div>
+    </div>
+
+    <!-- JS 스크립트 영역 -->
+    <script>
+        // ================= GLOBAL STATE =================
+        let currentDate = new Date();
+        let activeTab = 'calendar';
+        let postponingTodoId = null;
+        let currentTheme = localStorage.getItem('planner_theme') || 'vintage';
+
+        // Default Subjects with Warm Vintage/Pastel Colors
+        let subjects = JSON.parse(localStorage.getItem('planner_subjects')) || [
+            { id: 'sub_1', name: '국어', color: '#c05621' },
+            { id: 'sub_2', name: '수학', color: '#2b6cb0' },
+            { id: 'sub_3', name: '영어', color: '#2f855a' },
+            { id: 'sub_4', name: '과학', color: '#6b46c1' },
+            { id: 'sub_5', name: '사회', color: '#d69e2e' },
+            { id: 'sub_6', name: '한국사', color: '#b83280' },
+            { id: 'sub_7', name: '기타', color: '#718096' }
+        ];
+
+        let todos = JSON.parse(localStorage.getItem('planner_todos')) || [
+            { id: 't1', subjectId: 'sub_2', text: '쎈 수학 34p~40p 풀기', status: 'O', date: formatDate(new Date()) },
+            { id: 't2', subjectId: 'sub_3', text: '수능특강 영어 3강 단어 암기', status: 'TRIANGLE', date: formatDate(new Date()) }
+        ];
+
+        let academies = JSON.parse(localStorage.getItem('planner_academies')) || [
+            { id: 'ac_1', name: '탐구 수학학원', days: ['월', '수', '금'], start: '18:00', end: '21:00', color: '#7c5a43' },
+            { id: 'ac_2', name: '명문 영어과외', days: ['화', '목'], start: '19:30', end: '21:00', color: '#2f855a' }
+        ];
+
+        let ddays = JSON.parse(localStorage.getItem('planner_ddays')) || [
+            { id: 'd1', title: '2학기 기말고사', date: '2026-12-15' },
+            { id: 'd2', title: '2027 수능', date: '2026-11-19' }
+        ];
+
+        let schoolTimetable = JSON.parse(localStorage.getItem('planner_school_tt')) || Array(7).fill(null).map(() => Array(5).fill(''));
+
+        // ================= INITIALIZATION =================
+        window.onload = function() {
+            applyTheme(currentTheme);
+            document.getElementById('theme-selector').value = currentTheme;
+            updateCurrentDateHeader();
+            renderCalendar();
+            renderDdays();
+            renderTodos();
+            renderSchoolTimetable();
+            renderAcademies();
+        };
+
+        function applyTheme(themeName) {
+            currentTheme = themeName;
+            document.body.className = `theme-${themeName} text-slate-800 antialiased min-h-screen flex flex-col selection:bg-amber-500 selection:text-white`;
+            localStorage.setItem('planner_theme', themeName);
+        }
+
+        function saveAll() {
+            localStorage.setItem('planner_subjects', JSON.stringify(subjects));
+            localStorage.setItem('planner_todos', JSON.stringify(todos));
+            localStorage.setItem('planner_academies', JSON.stringify(academies));
+            localStorage.setItem('planner_ddays', JSON.stringify(ddays));
+            localStorage.setItem('planner_school_tt', JSON.stringify(schoolTimetable));
+        }
+
+        function formatDate(d) {
+            const yyyy = d.getFullYear();
+            const mm = String(d.getMonth() + 1).padStart(2, '0');
+            const dd = String(d.getDate()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}`;
+        }
+
+        function updateCurrentDateHeader() {
+            const today = new Date();
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            document.getElementById('current-date-display').innerText = 
+                `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일 (${days[today.getDay()]})`;
+        }
+
+        // ================= TAB NAVIGATION =================
+        function switchTab(tabName) {
+            activeTab = tabName;
+            document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-amber-800', 'shadow-sm', 'font-bold');
+            });
+
+            const selectedTab = document.getElementById(`tab-${tabName}`);
+            selectedTab.classList.add('bg-white', 'text-amber-800', 'shadow-sm', 'font-bold');
+
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+
+            if(tabName === 'calendar') renderCalendar();
+            if(tabName === 'todo') renderTodos();
+        }
+
+        // ================= 1. MONTHLY CALENDAR =================
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            document.getElementById('calendar-month-year').innerText = `${year}년 ${month + 1}월`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const todayStr = formatDate(new Date());
+
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+
+            // 빈 셀
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = "min-h-[70px] sm:min-h-[90px] opacity-20 rounded-2xl p-1";
+                grid.appendChild(emptyCell);
+            }
+
+            // 날짜 셀
+            for (let date = 1; date <= lastDate; date++) {
+                const cellDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                const isToday = cellDateStr === todayStr;
+                const dayTodos = todos.filter(t => t.date === cellDateStr);
+
+                const cell = document.createElement('div');
+                cell.className = `min-h-[70px] sm:min-h-[90px] rounded-2xl p-1.5 sm:p-2 border transition flex flex-col justify-between cursor-pointer hover:scale-[1.02] ${
+                    isToday ? 'border-amber-600 bg-amber-500/10 font-bold' : 'border-black/5 bg-black/5'
+                }`;
+
+                let todosSummaryHtml = '';
+                if(dayTodos.length > 0) {
+                    todosSummaryHtml = `<div class="space-y-1 mt-1 overflow-hidden">`;
+                    dayTodos.slice(0, 3).forEach(t => {
+                        const sub = subjects.find(s => s.id === t.subjectId);
+                        const color = sub ? sub.color : '#64748b';
+                        todosSummaryHtml += `
+                            <div class="text-[10px] truncate rounded-lg px-1.5 py-0.5 text-white font-medium" style="background-color: ${color}">
+                                ${t.text}
+                            </div>
+                        `;
+                    });
+                    if(dayTodos.length > 3) {
+                        todosSummaryHtml += `<div class="text-[9px] font-medium opacity-60 pl-0.5">+${dayTodos.length - 3}개 더보기</div>`;
+                    }
+                    todosSummaryHtml += `</div>`;
+                }
+
+                cell.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs ${isToday ? 'text-amber-800 bg-amber-200/80 w-5 h-5 rounded-md flex items-center justify-center font-bold' : 'font-medium'}">${date}</span>
+                    </div>
+                    ${todosSummaryHtml}
+                `;
+
+                cell.onclick = () => { switchTab('todo'); };
+                grid.appendChild(cell);
+            }
+        }
+
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function goToToday() {
+            currentDate = new Date();
+            renderCalendar();
+        }
+
+        // ================= D-DAY FUNCTIONS =================
+        function renderDdays() {
+            const container = document.getElementById('dday-container');
+            container.innerHTML = '';
+
+            if (ddays.length === 0) {
+                container.innerHTML = `<p class="text-xs opacity-80 col-span-full">등록된 D-Day가 없습니다. 추가해보세요!</p>`;
+                return;
+            }
+
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            ddays.forEach(d => {
+                const target = new Date(d.date);
+                target.setHours(0,0,0,0);
+                const diffTime = target - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                let ddayStr = '';
+                if (diffDays === 0) ddayStr = 'D-DAY';
+                else if (diffDays > 0) ddayStr = `D-${diffDays}`;
+                else ddayStr = `D+${Math.abs(diffDays)}`;
+
+                const card = document.createElement('div');
+                card.className = "bg-white/15 backdrop-blur-md rounded-2xl p-3 flex justify-between items-start border border-white/20 relative group";
+                card.innerHTML = `
+                    <div>
+                        <span class="text-[11px] block font-medium truncate max-w-[90px] text-white/90">${d.title}</span>
+                        <span class="text-lg font-black tracking-tight text-white">${ddayStr}</span>
+                    </div>
+                    <button onclick="deleteDday('${d.id}')" class="text-white/40 hover:text-white opacity-0 group-hover:opacity-100 transition text-xs p-0.5">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openDdayModal() { document.getElementById('modal-dday').classList.remove('hidden'); }
+
+        function saveDday() {
+            const title = document.getElementById('dday-title').value.trim();
+            const date = document.getElementById('dday-date').value;
+            if(!title || !date) { alert('일정 이름과 날짜를 입력해주세요.'); return; }
+            ddays.push({ id: 'd_' + Date.now(), title, date });
+            saveAll();
+            renderDdays();
+            closeModal('modal-dday');
+            document.getElementById('dday-title').value = '';
+            document.getElementById('dday-date').value = '';
+        }
+
+        function deleteDday(id) {
+            ddays = ddays.filter(d => d.id !== id);
+            saveAll();
+            renderDdays();
+        }
+
+        // ================= 2. SUBJECTS & TODO =================
+        function renderTodos() {
+            const container = document.getElementById('subjects-todo-container');
+            container.innerHTML = '';
+
+            subjects.forEach(sub => {
+                const subTodos = todos.filter(t => t.subjectId === sub.id);
+                
+                const card = document.createElement('div');
+                card.className = "card-bg rounded-3xl border overflow-hidden transition-all duration-200";
+
+                card.innerHTML = `
+                    <div onclick="toggleAccordion('${sub.id}')" class="p-4 flex items-center justify-between cursor-pointer select-none hover:opacity-80 transition">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-3.5 h-3.5 rounded-full shadow-xs" style="background-color: ${sub.color}"></span>
+                            <h3 class="font-bold text-sm sm:text-base tracking-tight">${sub.name}</h3>
+                            <span class="text-[11px] font-semibold badge-bg px-2.5 py-0.5 rounded-full">${subTodos.length}</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xs">
+                            <span class="text-[11px] sub-text font-medium hidden sm:inline">터치하여 터치/입력</span>
+                            <i id="arrow-${sub.id}" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </div>
+                    </div>
+
+                    <div id="content-${sub.id}" class="accordion-content border-t border-black/5">
+                        <div class="p-4 space-y-3">
+                            <div class="flex gap-2">
+                                <input type="text" id="input-todo-${sub.id}" placeholder="${sub.name} 할 일을 입력하세요" 
+                                    onkeypress="if(event.key==='Enter') addTodo('${sub.id}')"
+                                    class="flex-1 border border-black/10 rounded-2xl px-3.5 py-2 text-xs bg-white/70 focus:outline-none">
+                                <button onclick="addTodo('${sub.id}')" class="btn-primary px-4 py-2 text-xs font-semibold shadow-sm">
+                                    추가
+                                </button>
+                            </div>
+
+                            <div class="space-y-2" id="list-todo-${sub.id}">
+                                ${subTodos.length === 0 ? '<p class="text-xs sub-text py-3 text-center font-medium">등록된 할 일이 없습니다.</p>' : ''}
+                                ${subTodos.map(todo => renderTodoItem(todo)).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderTodoItem(todo) {
+            return `
+                <div class="bg-white/80 p-3 rounded-2xl border border-black/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 shadow-2xs">
+                    <span class="text-xs sm:text-sm font-medium text-slate-800 ${todo.status === 'O' ? 'line-through opacity-40' : ''}">${todo.text}</span>
+                    
+                    <div class="flex items-center space-x-1.5 self-end sm:self-auto">
+                        <button onclick="setTodoStatus('${todo.id}', 'O')" title="완료" 
+                            class="w-7 h-7 rounded-xl border text-xs font-bold transition flex items-center justify-center ${todo.status === 'O' ? 'bg-emerald-600 text-white border-emerald-600' : 'text-slate-400 border-slate-200 hover:border-emerald-400'}">
+                            ◯
+                        </button>
+                        <button onclick="setTodoStatus('${todo.id}', 'TRIANGLE')" title="진행중" 
+                            class="w-7 h-7 rounded-xl border text-xs font-bold transition flex items-center justify-center ${todo.status === 'TRIANGLE' ? 'bg-amber-600 text-white border-amber-600' : 'text-slate-400 border-slate-200 hover:border-amber-400'}">
+                            △
+                        </button>
+                        <button onclick="setTodoStatus('${todo.id}', 'X')" title="미완료" 
+                            class="w-7 h-7 rounded-xl border text-xs font-bold transition flex items-center justify-center ${todo.status === 'X' ? 'bg-rose-600 text-white border-rose-600' : 'text-slate-400 border-slate-200 hover:border-rose-400'}">
+                            ✕
+                        </button>
+                        <button onclick="openPostponeModal('${todo.id}')" title="미루기" 
+                            class="w-7 h-7 rounded-xl border text-xs font-bold transition flex items-center justify-center ${todo.status === 'POSTPONE' ? 'bg-indigo-600 text-white border-indigo-600' : 'text-slate-400 border-slate-200 hover:border-indigo-400'}">
+                            ➔
+                        </button>
+
+                        <div class="h-3 w-px bg-slate-200 mx-1"></div>
+
+                        <button onclick="deleteTodo('${todo.id}')" class="text-slate-300 hover:text-rose-500 p-1 transition">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleAccordion(subId) {
+            const content = document.getElementById(`content-${subId}`);
+            const arrow = document.getElementById(`arrow-${subId}`);
+            content.classList.toggle('active');
+            if (content.classList.contains('active')) {
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function addTodo(subjectId) {
+            const input = document.getElementById(`input-todo-${subjectId}`);
+            const text = input.value.trim();
+            if(!text) return;
+
+            todos.push({
+                id: 'todo_' + Date.now(),
+                subjectId,
+                text,
+                status: 'X',
+                date: formatDate(new Date())
+            });
+
+            saveAll();
+            renderTodos();
+        }
+
+        function setTodoStatus(todoId, status) {
+            const todo = todos.find(t => t.id === todoId);
+            if(todo) {
+                todo.status = status;
+                saveAll();
+                renderTodos();
+            }
+        }
+
+        function deleteTodo(todoId) {
+            todos = todos.filter(t => t.id !== todoId);
+            saveAll();
+            renderTodos();
+        }
+
+        function openPostponeModal(todoId) {
+            postponingTodoId = todoId;
+            document.getElementById('modal-postpone').classList.remove('hidden');
+        }
+
+        function confirmPostpone() {
+            const dateVal = document.getElementById('postpone-date-input').value;
+            if(!dateVal) { alert('미룰 날짜를 선택해 주세요.'); return; }
+
+            const todo = todos.find(t => t.id === postponingTodoId);
+            if(todo) {
+                todo.date = dateVal;
+                todo.status = 'POSTPONE';
+                saveAll();
+                renderTodos();
+            }
+
+            closeModal('modal-postpone');
+        }
+
+        // ================= SUBJECT MANAGEMENT =================
+        function openSubjectModal() {
+            renderSubjectManageList();
+            document.getElementById('modal-subject').classList.remove('hidden');
+        }
+
+        function renderSubjectManageList() {
+            const container = document.getElementById('subject-manage-list');
+            container.innerHTML = '';
+
+            subjects.forEach(sub => {
+                const row = document.createElement('div');
+                row.className = "flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 border border-slate-100";
+                row.innerHTML = `
+                    <div class="flex items-center space-x-2.5">
+                        <input type="color" value="${sub.color}" onchange="updateSubjectColor('${sub.id}', this.value)" class="w-6 h-6 rounded-lg cursor-pointer border-0 p-0 bg-transparent">
+                        <span class="font-semibold text-xs text-slate-800">${sub.name}</span>
+                    </div>
+                    <button onclick="deleteSubject('${sub.id}')" class="text-slate-300 hover:text-rose-500 p-1 transition">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function updateSubjectColor(subId, newColor) {
+            const sub = subjects.find(s => s.id === subId);
+            if(sub) {
+                sub.color = newColor;
+                saveAll();
+                renderTodos();
+            }
+        }
+
+        function addNewSubject() {
+            const name = document.getElementById('new-subject-name').value.trim();
+            const color = document.getElementById('new-subject-color').value;
+            if(!name) { alert('과목명을 입력하세요.'); return; }
+
+            subjects.push({ id: 'sub_' + Date.now(), name, color });
+            saveAll();
+            renderSubjectManageList();
+            renderTodos();
+            document.getElementById('new-subject-name').value = '';
+        }
+
+        function deleteSubject(subId) {
+            if(subjects.length <= 1) { alert('최소 1개 이상의 과목이 지정되어 있어야 합니다.'); return; }
+            subjects = subjects.filter(s => s.id !== subId);
+            todos = todos.filter(t => t.subjectId !== subId);
+            saveAll();
+            renderSubjectManageList();
+            renderTodos();
+        }
+
+        // ================= 3. TIMETABLE & ACADEMY =================
+        function renderSchoolTimetable() {
+            const body = document.getElementById('school-timetable-body');
+            body.innerHTML = '';
+
+            for(let period = 0; period < 7; period++) {
+                const tr = document.createElement('tr');
+                let rowHtml = `<td class="p-3 font-semibold sub-text badge-bg">${period + 1}교시</td>`;
+
+                for(let day = 0; day < 5; day++) {
+                    const subjectName = schoolTimetable[period][day] || '';
+                    const matchedSubject = subjects.find(s => s.name === subjectName);
+                    const bgColor = matchedSubject ? matchedSubject.color + '20' : 'transparent';
+                    const textColor = matchedSubject ? matchedSubject.color : 'currentColor';
+
+                    rowHtml += `
+                        <td onclick="openSchoolCellModal(${day}, ${period})" 
+                            class="p-3 cursor-pointer hover:bg-black/5 transition font-semibold"
+                            style="background-color: ${bgColor}; color: ${textColor}">
+                            ${subjectName || '<span class="opacity-40 font-normal text-[11px]">+ 입력</span>'}
+                        </td>
+                    `;
+                }
+                tr.innerHTML = rowHtml;
+                body.appendChild(tr);
+            }
+        }
+
+        function openSchoolCellModal(day, period) {
+            document.getElementById('cell-day-index').value = day;
+            document.getElementById('cell-period-index').value = period;
+            document.getElementById('cell-subject-name').value = schoolTimetable[period][day] || '';
+            document.getElementById('modal-school-cell').classList.remove('hidden');
+        }
+
+        function saveSchoolCell() {
+            const day = document.getElementById('cell-day-index').value;
+            const period = document.getElementById('cell-period-index').value;
+            const val = document.getElementById('cell-subject-name').value.trim();
+
+            schoolTimetable[period][day] = val;
+            saveAll();
+            renderSchoolTimetable();
+            closeModal('modal-school-cell');
+        }
+
+        function renderAcademies() {
+            const container = document.getElementById('academy-list');
+            container.innerHTML = '';
+
+            if (academies.length === 0) {
+                container.innerHTML = `<p class="text-xs sub-text col-span-full py-4 text-center font-medium">등록된 학원 일정이 없습니다.</p>`;
+                return;
+            }
+
+            academies.forEach(ac => {
+                const card = document.createElement('div');
+                card.className = "bg-white/80 p-4 rounded-2xl border border-black/10 shadow-2xs flex justify-between items-start";
+                card.style.borderLeft = `4px solid ${ac.color}`;
+
+                card.innerHTML = `
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm tracking-tight">${ac.name}</h4>
+                        <div class="flex flex-wrap gap-1 mt-1.5 mb-2">
+                            ${ac.days.map(d => `<span class="text-[10px] bg-black/5 text-slate-700 font-semibold px-2 py-0.5 rounded-md">${d}요일</span>`).join('')}
+                        </div>
+                        <p class="text-xs sub-text font-medium">
+                            <i class="fa-regular fa-clock mr-1"></i>${ac.start} ~ ${ac.end}
+                        </p>
+                    </div>
+                    <div class="flex space-x-1">
+                        <button onclick="editAcademy('${ac.id}')" class="text-slate-400 hover:text-amber-700 p-1 transition">
+                            <i class="fa-solid fa-pen text-xs"></i>
+                        </button>
+                        <button onclick="deleteAcademy('${ac.id}')" class="text-slate-400 hover:text-rose-500 p-1 transition">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openAcademyModal() {
+            document.getElementById('academy-modal-title').innerText = '학원 일정 추가';
+            document.getElementById('academy-edit-id').value = '';
+            document.getElementById('academy-name').value = '';
+            document.getElementById('academy-start').value = '18:00';
+            document.getElementById('academy-end').value = '20:00';
+            document.querySelectorAll('.day-btn').forEach(btn => btn.classList.remove('bg-amber-800', 'text-white'));
+            document.getElementById('modal-academy').classList.remove('hidden');
+        }
+
+        function toggleDaySelection(btn) {
+            btn.classList.toggle('bg-amber-800');
+            btn.classList.toggle('text-white');
+        }
+
+        function saveAcademy() {
+            const id = document.getElementById('academy-edit-id').value;
+            const name = document.getElementById('academy-name').value.trim();
+            const start = document.getElementById('academy-start').value;
+            const end = document.getElementById('academy-end').value;
+            const color = document.getElementById('academy-color').value;
+
+            const selectedDays = [];
+            document.querySelectorAll('.day-btn.bg-amber-800').forEach(btn => {
+                selectedDays.push(btn.getAttribute('data-day'));
+            });
+
+            if(!name || selectedDays.length === 0 || !start || !end) {
+                alert('학원 이름, 요일, 시간을 지정해주세요.');
+                return;
+            }
+
+            if(id) {
+                const ac = academies.find(a => a.id === id);
+                if(ac) {
+                    ac.name = name;
+                    ac.days = selectedDays;
+                    ac.start = start;
+                    ac.end = end;
+                    ac.color = color;
+                }
+            } else {
+                academies.push({ id: 'ac_' + Date.now(), name, days: selectedDays, start, end, color });
+            }
+
+            saveAll();
+            renderAcademies();
+            closeModal('modal-academy');
+        }
+
+        function editAcademy(id) {
+            const ac = academies.find(a => a.id === id);
+            if(!ac) return;
+
+            document.getElementById('academy-modal-title').innerText = '학원 일정 수정';
+            document.getElementById('academy-edit-id').value = ac.id;
+            document.getElementById('academy-name').value = ac.name;
+            document.getElementById('academy-start').value = ac.start;
+            document.getElementById('academy-end').value = ac.end;
+            document.getElementById('academy-color').value = ac.color;
+
+            document.querySelectorAll('.day-btn').forEach(btn => {
+                const day = btn.getAttribute('data-day');
+                if(ac.days.includes(day)) {
+                    btn.classList.add('bg-amber-800', 'text-white');
+                } else {
+                    btn.classList.remove('bg-amber-800', 'text-white');
+                }
+            });
+
+            document.getElementById('modal-academy').classList.remove('hidden');
+        }
+
+        function deleteAcademy(id) {
+            academies = academies.filter(a => a.id !== id);
+            saveAll();
+            renderAcademies();
+        }
+
+        function closeModal(modalId) { document.getElementById(modalId).classList.add('hidden'); }
+    </script>
+</body>
+</html>
