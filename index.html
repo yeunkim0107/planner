@@ -3,166 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>고등학생 스마트 플래너</title>
+    <title>프리미엄 스터디 다이어리 (Study Diary)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome 아이콘 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Pretendard / Noto Sans KR 폰트 -->
+    <!-- Pretendard & 감성 명조 폰트 -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <!-- Google Fonts for Vintage Paper Mode -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Batang:wght@400;700&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#FBF9F5',
+                        'paper-card': '#FFFFFF',
+                        'cocoa-main': '#8A7060',
+                        'cocoa-dark': '#362F2D',
+                        'mute-beige': '#EFECE6',
+                        'sage-green': '#939B85',
+                        'border-paper': '#EAE5DC'
+                    },
+                    fontFamily: {
+                        myeongjo: ['"Gowun Batang"', '"Nanum Myeongjo"', 'serif'],
+                        sans: ['"Pretendard Variable"', 'Pretendard', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        body {
+            background-color: #FBF9F5;
+            color: #362F2D;
+            font-family: "Pretendard Variable", Pretendard, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ---------------- 테마 1: 오래된 빈티지 종이 (Kraft / Vintage Paper) ---------------- */
-        body.theme-vintage {
-            background-color: #f4eae1;
-            background-image: radial-gradient(#d3c3b4 1px, transparent 1px);
-            background-size: 18px 18px;
-            color: #4a3b32;
-        }
-        body.theme-vintage header {
-            background-color: #e8d9cc !important;
-            border-bottom-color: #d8c4b2 !important;
-        }
-        body.theme-vintage .card-bg {
-            background-color: #fbf7f2 !important;
-            border-color: #e0d0c1 !important;
-            box-shadow: 3px 3px 0px #d3c3b4 !important;
-            border-radius: 12px !important;
-        }
-        body.theme-vintage .badge-bg {
-            background-color: #ecdcd0 !important;
-            color: #6b5344 !important;
-        }
-        body.theme-vintage h1, body.theme-vintage h2, body.theme-vintage h3 {
-            font-family: 'Gowun Batang', serif;
-            color: #382a21;
-        }
-        body.theme-vintage .btn-primary {
-            background-color: #7c5a43 !important;
-            color: #fff !important;
-            box-shadow: 2px 2px 0px #4a3b32 !important;
-            border-radius: 8px !important;
+        /* 다이어리 카드 스타일 */
+        .paper-card {
+            background-color: #FFFFFF;
+            border: 1px solid #EAE5DC;
+            box-shadow: 0 4px 20px -2px rgba(54, 47, 45, 0.03), 0 2px 6px -1px rgba(54, 47, 45, 0.02);
+            border-radius: 20px;
         }
 
-        /* ---------------- 테마 2: 소프트 아이보리 크림 (Warm Cream) ---------------- */
-        body.theme-cream {
-            background-color: #fbf9f4;
-            color: #433d3c;
+        .paper-card-stacked {
+            position: relative;
         }
-        body.theme-cream header {
-            background-color: #f5f0e6/90 !important;
-            border-bottom-color: #eae1d2 !important;
-        }
-        body.theme-cream .card-bg {
-            background-color: #ffffff !important;
-            border-color: #eee7d9 !important;
-            box-shadow: 0 10px 25px -5px rgba(210, 195, 170, 0.2) !important;
-            border-radius: 24px !important;
-        }
-        body.theme-cream .badge-bg {
-            background-color: #f3ece0 !important;
-            color: #8c7a6b !important;
-        }
-        body.theme-cream .btn-primary {
-            background-color: #d97706 !important;
-            color: #ffffff !important;
-            border-radius: 16px !important;
+        .paper-card-stacked::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #F5F1EA;
+            border: 1px solid #E5DFD4;
+            border-radius: 20px;
+            transform: rotate(-0.5deg) translate(-2px, 3px);
+            z-index: -1;
         }
 
-        /* ---------------- 테마 3: 미드나잇 독서실 (Midnight Dark) ---------------- */
-        body.theme-dark {
-            background-color: #0f172a;
-            color: #f1f5f9;
-        }
-        body.theme-dark header {
-            background-color: #1e293b/80 !important;
-            border-bottom-color: #334155 !important;
-        }
-        body.theme-dark .card-bg {
-            background-color: #1e293b !important;
-            border-color: #334155 !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
-            border-radius: 20px !important;
-        }
-        body.theme-dark .badge-bg {
-            background-color: #334155 !important;
-            color: #94a3b8 !important;
-        }
-        body.theme-dark h1, body.theme-dark h2, body.theme-dark h3, body.theme-dark span, body.theme-dark div {
-            color: #f8fafc;
-        }
-        body.theme-dark .sub-text {
-            color: #94a3b8 !important;
-        }
-        body.theme-dark .btn-primary {
-            background-color: #6366f1 !important;
-            color: #ffffff !important;
-            border-radius: 14px !important;
+        .font-myeongjo {
+            font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
         }
 
-        /* ---------------- 테마 4: Y2K 틴에이저 핑크 (Y2K Pink) ---------------- */
-        body.theme-y2k {
-            background-color: #fdf4f8;
-            color: #581c87;
+        /* 다이어리 인덱스 탭 버튼 */
+        .diary-tab {
+            position: relative;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        body.theme-y2k header {
-            background-color: #fae8ff !important;
-            border-bottom-color: #f5d0fe !important;
-        }
-        body.theme-y2k .card-bg {
-            background-color: #ffffff !important;
-            border: 2px solid #f472b6 !important;
-            box-shadow: 4px 4px 0px #ec4899 !important;
-            border-radius: 20px !important;
-        }
-        body.theme-y2k .badge-bg {
-            background-color: #fbcfe8 !important;
-            color: #9d174d !important;
-        }
-        body.theme-y2k .btn-primary {
-            background-color: #ec4899 !important;
-            color: #ffffff !important;
-            box-shadow: 3px 3px 0px #831843 !important;
-            border-radius: 14px !important;
+        .diary-tab.active {
+            background-color: #FFFFFF;
+            color: #8A7060;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(138, 112, 96, 0.12);
         }
 
-        /* ---------------- 테마 5: 글래스모피즘 (Glassmorphism) ---------------- */
-        body.theme-glass {
-            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #fce7f3 100%);
-            min-h-screen: 100vh;
-            color: #1e1b4b;
+        /* 아코디언 애니메이션 */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        body.theme-glass header {
-            background-color: rgba(255, 255, 255, 0.6) !important;
-            backdrop-filter: blur(16px);
-            border-bottom-color: rgba(255, 255, 255, 0.4) !important;
-        }
-        body.theme-glass .card-bg {
-            background-color: rgba(255, 255, 255, 0.55) !important;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.7) !important;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07) !important;
-            border-radius: 24px !important;
-        }
-        body.theme-glass .badge-bg {
-            background-color: rgba(255, 255, 255, 0.7) !important;
-            color: #4338ca !important;
-        }
-        body.theme-glass .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #a855f7) !important;
-            color: #ffffff !important;
-            border-radius: 16px !important;
+        .accordion-content.active {
+            max-height: 1200px;
         }
 
-        /* Custom scrollbar */
+        /* 커스텀 스크롤바 */
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -171,119 +100,348 @@
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
+            background: #E5DFD4;
             border-radius: 9999px;
         }
 
-        /* Accordion Transition */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        /* ===== 타이머 전용 다크 모드 스타일 ===== */
+        body.timer-active {
+            background-color: #1A1817 !important;
+            color: #E6E1DA !important;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
-        .accordion-content.active {
-            max-height: 1200px;
-            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+        body.timer-active header {
+            background-color: rgba(26, 24, 23, 0.9) !important;
+            border-color: #2E2927 !important;
+        }
+
+        body.timer-active h1,
+        body.timer-active h2,
+        body.timer-active h3,
+        body.timer-active #timer-display {
+            color: #F3EFEA !important;
+        }
+
+        body.timer-active .paper-card {
+            background-color: #24201E !important;
+            border-color: #36302D !important;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        body.timer-active .diary-tab {
+            color: #A3978E !important;
+        }
+
+        body.timer-active .diary-tab.active {
+            background-color: #36302D !important;
+            color: #FFFDF8 !important;
+        }
+
+        body.timer-active select,
+        body.timer-active input {
+            background-color: #2E2927 !important;
+            color: #F3EFEA !important;
+            border-color: #423B37 !important;
+        }
+
+        body.timer-active #mode-normal-btn,
+        body.timer-active #mode-pomo-btn {
+            background-color: transparent;
+            color: #A3978E;
+        }
+
+        body.timer-active #mode-normal-btn.bg-white,
+        body.timer-active #mode-pomo-btn.bg-white {
+            background-color: #36302D !important;
+            color: #FFFDF8 !important;
+        }
+
+        body.timer-active .bg-\[\#F5F1EA\] {
+            background-color: #2E2927 !important;
+            border-color: #423B37 !important;
         }
     </style>
 </head>
-<body class="theme-vintage text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-[#8A7060] selection:text-white">
 
-    <!-- 상단 네비게이션 헤더 -->
-    <header class="sticky top-0 z-30 transition-all border-b border-slate-200/60 bg-white/80 backdrop-blur-xl">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
+    <!-- 상단 다이어리 헤더 -->
+    <header class="sticky top-0 z-30 bg-[#FBF9F5]/90 backdrop-blur-md border-b border-[#EAE5DC]">
+        <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-700 to-amber-900 text-white flex items-center justify-center font-bold text-lg shadow-md">
-                        <i class="fa-solid fa-book-open"></i>
+                    <div class="w-9 h-9 rounded-xl bg-[#8A7060] text-[#FFFDF8] flex items-center justify-center font-myeongjo font-bold text-base shadow-sm">
+                        日
                     </div>
                     <div>
-                        <h1 class="font-extrabold text-base tracking-tight">STUDY PLANNER</h1>
-                        <p class="text-[11px] font-medium sub-text text-slate-400" id="current-date-display">2026년 11월 9일 (월)</p>
+                        <h1 class="font-myeongjo font-bold text-base sm:text-lg tracking-tight text-[#362F2D]">MY STUDY DIARY</h1>
+                        <p class="text-[11px] text-[#8C7E77] font-medium" id="current-date-display">2026년 11월 9일 월요일</p>
                     </div>
-                </div>
-
-                <!-- 디자인 테마 셀렉터 드롭다운 -->
-                <div class="flex items-center space-x-2">
-                    <span class="text-xs font-bold hidden md:inline">🎨 테마 선택:</span>
-                    <select id="theme-selector" onchange="applyTheme(this.value)" class="text-xs bg-white/90 border border-slate-300 rounded-xl px-2.5 py-1.5 font-bold shadow-xs cursor-pointer focus:outline-none">
-                        <option value="vintage">📜 1. 오래된 종이 노트 (선택추천)</option>
-                        <option value="cream">🍦 2. 소프트 아이보리</option>
-                        <option value="dark">🌙 3. 미드나잇 독서실</option>
-                        <option value="y2k">🎀 4. Y2K 틴에이저 핑크</option>
-                        <option value="glass">💎 5. 글래스모피즘 미래형</option>
-                    </select>
                 </div>
             </div>
 
-            <!-- 네비게이션 탭 버튼 -->
-            <nav class="flex space-x-1 bg-black/5 p-1 rounded-2xl text-xs font-semibold badge-bg border border-slate-200/50 w-full sm:w-auto justify-center">
-                <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-3.5 py-2 rounded-xl bg-white text-indigo-600 shadow-sm font-bold transition-all duration-200">
-                    <i class="fa-regular fa-calendar-days mr-1.5"></i>월간 달력
+            <!-- 네비게이션 인덱스 탭 -->
+            <nav class="flex space-x-1 bg-[#EFECE6] p-1 rounded-2xl text-xs font-medium w-full sm:w-auto justify-center border border-[#E0D9CE] overflow-x-auto">
+                <button onclick="switchTab('calendar')" id="tab-calendar" class="diary-tab active px-3.5 py-2 rounded-xl text-[#6E615A] transition whitespace-nowrap">
+                    <i class="fa-regular fa-calendar-days mr-1.5 opacity-80"></i>월간 달력
                 </button>
-                <button onclick="switchTab('todo')" id="tab-todo" class="tab-btn px-3.5 py-2 rounded-xl transition-all duration-200">
-                    <i class="fa-solid fa-list-check mr-1.5"></i>과목별 할일
+                <button onclick="switchTab('todo')" id="tab-todo" class="diary-tab px-3.5 py-2 rounded-xl text-[#6E615A] transition whitespace-nowrap">
+                    <i class="fa-solid fa-list-check mr-1.5 opacity-80"></i>과목별 할 일
                 </button>
-                <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-3.5 py-2 rounded-xl transition-all duration-200">
-                    <i class="fa-solid fa-calendar-week mr-1.5"></i>시간표
+                <button onclick="switchTab('stats')" id="tab-stats" class="diary-tab px-3.5 py-2 rounded-xl text-[#6E615A] transition whitespace-nowrap">
+                    <i class="fa-solid fa-chart-column mr-1.5 opacity-80"></i>학습 통계
+                </button>
+                <button onclick="switchTab('timer')" id="tab-timer" class="diary-tab px-3.5 py-2 rounded-xl text-[#6E615A] transition whitespace-nowrap">
+                    <i class="fa-solid fa-stopwatch mr-1.5 opacity-80"></i>공부 타이머
+                </button>
+                <button onclick="switchTab('schedule')" id="tab-schedule" class="diary-tab px-3.5 py-2 rounded-xl text-[#6E615A] transition whitespace-nowrap">
+                    <i class="fa-solid fa-clock mr-1.5 opacity-80"></i>시간표
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- 메인 컨텐츠 영역 -->
+    <!-- 메인 다이어리 내지 컨텐츠 -->
     <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
 
-        <!-- ================= 1. 월간 달력 탭 (디폴트) ================= -->
+        <!-- ================= 0-1. 주간/월간 학습 달성률 통계 탭 ================= -->
+        <section id="view-stats" class="tab-view hidden space-y-6">
+            <div class="paper-card p-5 sm:p-6">
+                <!-- 헤더 & 주간/월간 필터 -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-[#F5F1EA] pb-4">
+                    <div>
+                        <h2 class="font-myeongjo font-bold text-base sm:text-lg text-[#362F2D] flex items-center">
+                            <i class="fa-solid fa-chart-line mr-2 text-[#8A7060]"></i>학습 통계 종합 리포트
+                        </h2>
+                        <p class="text-xs text-[#8C7E77] mt-0.5">선택한 기간 동안의 과목별 순공 시간과 할 일 달성률을 분석합니다.</p>
+                    </div>
+
+                    <div class="flex space-x-1.5 bg-[#F5F1EA] p-1 rounded-xl text-xs border border-[#E5DFD4] self-end sm:self-auto">
+                        <button id="stats-weekly-btn" onclick="setStatsPeriod('weekly')" class="px-3.5 py-1.5 rounded-lg font-bold text-[#8A7060] bg-white shadow-2xs">
+                            이번 주 (주간)
+                        </button>
+                        <button id="stats-monthly-btn" onclick="setStatsPeriod('monthly')" class="px-3.5 py-1.5 rounded-lg font-medium text-[#8C7E77] hover:bg-white/50">
+                            이번 달 (월간)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 상단 요약 카드 그리드 (순공 시간 & 할 일 달성률) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-6">
+                    <!-- 1. 총 공부시간 요약 카드 -->
+                    <div class="bg-[#FBF9F5] p-5 rounded-2xl border border-[#E5DFD4] flex flex-col justify-between items-center text-center">
+                        <span class="text-xs font-semibold text-[#8C7E77] uppercase tracking-wider flex items-center">
+                            <i class="fa-regular fa-clock mr-1.5 text-[#8A7060]"></i>기간 내 누적 순공 시간
+                        </span>
+                        <div class="my-4">
+                            <span id="period-total-time" class="font-myeongjo font-bold text-3xl sm:text-4xl text-[#8A7060]">0시간 0분</span>
+                            <span class="block text-[11px] text-[#8C7E77] font-medium mt-1" id="period-time-sub">공부 타이머로 기록된 실시간 데이터</span>
+                        </div>
+                        <div class="w-full bg-[#EFECE6] p-2 rounded-xl text-[11px] text-[#6E615A] border border-[#E5DFD4]">
+                            집중적으로 투자한 과목을 아래 그래프에서 확인하세요!
+                        </div>
+                    </div>
+
+                    <!-- 2. 전체 할 일 달성률 종합 카드 -->
+                    <div class="bg-[#FBF9F5] p-5 rounded-2xl border border-[#E5DFD4] flex flex-col justify-between items-center text-center">
+                        <span class="text-xs font-semibold text-[#8C7E77] uppercase tracking-wider flex items-center">
+                            <i class="fa-solid fa-[#8A7060] fa-list-check mr-1.5 text-[#8A7060]"></i>전체 할 일 달성률
+                        </span>
+                        <div class="my-3 relative flex items-center justify-center">
+                            <div class="text-center">
+                                <span id="total-completion-rate" class="font-myeongjo font-bold text-3xl sm:text-4xl text-[#8A7060]">0%</span>
+                                <span class="block text-[11px] text-[#8C7E77] font-medium mt-1" id="total-completion-sub">0개 중 0개 완료</span>
+                            </div>
+                        </div>
+                        <div class="w-full bg-[#EFECE6] h-2.5 rounded-full overflow-hidden border border-[#E5DFD4]">
+                            <div id="total-completion-bar" class="h-full bg-[#8A7060] rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 현황 갯수 요약 -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                    <div class="bg-white p-3.5 rounded-xl border border-[#EAE5DC] text-center flex flex-col justify-center">
+                        <span class="text-xs text-[#7EA185] font-bold block mb-1">◯ 완료</span>
+                        <span id="stat-count-o" class="font-myeongjo font-bold text-xl text-[#362F2D]">0</span>
+                        <span class="text-[10px] text-[#8C7E77] mt-0.5">건</span>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-xl border border-[#EAE5DC] text-center flex flex-col justify-center">
+                        <span class="text-xs text-[#BE9A6B] font-bold block mb-1">△ 진행중</span>
+                        <span id="stat-count-triangle" class="font-myeongjo font-bold text-xl text-[#362F2D]">0</span>
+                        <span class="text-[10px] text-[#8C7E77] mt-0.5">건</span>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-xl border border-[#EAE5DC] text-center flex flex-col justify-center">
+                        <span class="text-xs text-[#B68282] font-bold block mb-1">✕ 미완료</span>
+                        <span id="stat-count-x" class="font-myeongjo font-bold text-xl text-[#362F2D]">0</span>
+                        <span class="text-[10px] text-[#8C7E77] mt-0.5">건</span>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-xl border border-[#EAE5DC] text-center flex flex-col justify-center">
+                        <span class="text-xs text-[#6A8B9C] font-bold block mb-1">➔ 미루기</span>
+                        <span id="stat-count-postpone" class="font-myeongjo font-bold text-xl text-[#362F2D]">0</span>
+                        <span class="text-[10px] text-[#8C7E77] mt-0.5">건</span>
+                    </div>
+                </div>
+
+                <!-- 과목별 공부시간 분석 & 달성률 통합 세션 -->
+                <div class="space-y-6 pt-4 border-t border-[#F5F1EA]">
+                    <!-- 과목별 순공 시간 통계 -->
+                    <div>
+                        <h3 class="font-myeongjo font-bold text-sm text-[#362F2D] mb-3 flex items-center">
+                            <i class="fa-solid fa-stopwatch text-[#8A7060] mr-2"></i>과목별 누적 공부시간
+                        </h3>
+                        <div id="subject-time-bars" class="space-y-3.5">
+                            <!-- JS Dynamic Render -->
+                        </div>
+                    </div>
+
+                    <!-- 과목별 상세 달성률 -->
+                    <div class="pt-4 border-t border-[#F5F1EA]">
+                        <h3 class="font-myeongjo font-bold text-sm text-[#362F2D] mb-3 flex items-center">
+                            <i class="fa-solid fa-check-double text-[#8A7060] mr-2"></i>과목별 할 일 달성률
+                        </h3>
+                        <div id="subject-completion-bars" class="space-y-3.5">
+                            <!-- JS Dynamic Render -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 0. 공부 타이머 & 스톱워치 탭 ================= -->
+        <section id="view-timer" class="tab-view hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 타이머 제어 카드 -->
+                <div class="paper-card p-6 md:col-span-2 flex flex-col items-center justify-center space-y-5 text-center">
+                    <!-- 모드 선택 탭 -->
+                    <div class="flex space-x-2 bg-[#F5F1EA] p-1 rounded-xl text-xs border border-[#E5DFD4]">
+                        <button id="mode-normal-btn" onclick="setTimerMode('normal')" class="px-4 py-1.5 rounded-lg font-bold text-[#8A7060] bg-white shadow-2xs">
+                            일반 스톱워치
+                        </button>
+                        <button id="mode-pomo-btn" onclick="setTimerMode('pomo')" class="px-4 py-1.5 rounded-lg font-medium text-[#8C7E77] hover:bg-white/50">
+                            뽀모도로 (시간 커스텀)
+                        </button>
+                    </div>
+
+                    <!-- 뽀모도로 사용자 시간 설정 옵션 -->
+                    <div id="pomo-settings-group" class="hidden flex items-center space-x-3 bg-[#F5F1EA] px-4 py-2 rounded-xl text-xs border border-[#E5DFD4]">
+                        <div class="flex items-center space-x-1">
+                            <span class="text-[#8C7E77] font-medium">집중:</span>
+                            <input type="number" id="pomo-focus-min" value="25" min="1" max="120" onchange="updatePomoSettings()" class="w-12 text-center border border-[#E5DFD4] rounded-lg p-1 bg-white focus:outline-none focus:border-[#8A7060] font-bold">
+                            <span class="text-[#8C7E77]">분</span>
+                        </div>
+                        <span class="text-[#8C7E77]">/</span>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-[#8C7E77] font-medium">휴식:</span>
+                            <input type="number" id="pomo-rest-min" value="5" min="1" max="60" onchange="updatePomoSettings()" class="w-12 text-center border border-[#E5DFD4] rounded-lg p-1 bg-white focus:outline-none focus:border-[#8A7060] font-bold">
+                            <span class="text-[#8C7E77]">분</span>
+                        </div>
+                    </div>
+
+                    <!-- 과목 선택 드롭다운 -->
+                    <div class="w-full max-w-xs">
+                        <label class="block text-xs text-[#8C7E77] font-medium mb-1">측정할 과목 선택</label>
+                        <select id="timer-subject-select" onchange="onTimerSubjectChange()" class="w-full border border-[#E5DFD4] rounded-xl px-3 py-2 text-xs bg-[#FFFFFF] focus:outline-none focus:border-[#8A7060] text-center font-semibold">
+                            <!-- JS Dynamic -->
+                        </select>
+                    </div>
+
+                    <!-- 디스플레이 타이머 -->
+                    <div class="py-4">
+                        <span id="pomo-status-badge" class="hidden text-xs bg-[#8A7060] text-white px-3 py-1 rounded-full font-medium mb-2 inline-block">25분 집중 시간</span>
+                        <div id="timer-display" class="font-myeongjo font-bold text-5xl sm:text-6xl tracking-tight text-[#362F2D]">
+                            00:00:00
+                        </div>
+                    </div>
+
+                    <!-- 버튼 제어 -->
+                    <div class="flex items-center space-x-3">
+                        <button id="timer-start-btn" onclick="toggleTimer()" class="px-8 py-3 bg-[#8A7060] hover:bg-[#776051] text-white text-sm font-bold rounded-2xl transition shadow-md flex items-center">
+                            <i class="fa-solid fa-play mr-2"></i> 시작
+                        </button>
+                        <button onclick="resetTimer()" class="px-5 py-3 bg-[#F5F1EA] hover:bg-[#EFECE6] text-[#6E615A] text-sm font-semibold rounded-2xl border border-[#E5DFD4] transition">
+                            <i class="fa-solid fa-rotate-left mr-1.5"></i> 초기화
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 오늘 과목별 통계 요약 카드 -->
+                <div class="paper-card p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-myeongjo font-bold text-base text-[#362F2D] border-b border-[#F5F1EA] pb-3 flex items-center justify-between">
+                            <span><i class="fa-solid fa-chart-pie mr-2 text-[#8A7060]"></i>오늘 공부 통계</span>
+                            <span class="text-xs font-sans font-normal text-[#8C7E77]" id="today-stat-date"></span>
+                        </h3>
+
+                        <!-- 총 공부시간 -->
+                        <div class="my-4 p-4 bg-[#F5F1EA] rounded-xl text-center border border-[#E5DFD4]">
+                            <span class="text-xs text-[#8C7E77] font-medium block mb-1">오늘의 총 순공 시간</span>
+                            <span id="total-study-time-display" class="font-myeongjo font-bold text-2xl text-[#8A7060]">0시간 0분 0초</span>
+                        </div>
+
+                        <!-- 과목별 리스트 -->
+                        <div class="space-y-3 max-h-56 overflow-y-auto pr-1" id="subject-study-stats">
+                            <!-- JS Dynamic -->
+                        </div>
+                    </div>
+
+                    <button onclick="resetTodayStats()" class="mt-4 text-[11px] text-[#8C7E77] hover:text-[#C06060] text-center w-full block">
+                        오늘 기록 초기화
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 1. 월간 달력 탭 (단일 월간 달력) ================= -->
         <section id="view-calendar" class="tab-view block space-y-6">
-            <!-- D-Day 영역 -->
-            <div class="btn-primary rounded-3xl p-6 shadow-lg relative overflow-hidden">
-                <div class="flex justify-between items-center mb-4 relative z-10">
-                    <h2 class="font-bold text-base flex items-center tracking-tight text-white">
-                        <i class="fa-solid fa-fire mr-2 text-amber-300"></i> 중요 D-Day
+            <!-- 감성 D-Day 배너 카드 -->
+            <div class="paper-card paper-card-stacked p-5 sm:p-6 border border-[#EAE5DC]">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="font-myeongjo font-bold text-sm sm:text-base flex items-center text-[#362F2D]">
+                        <i class="fa-solid fa-bookmark mr-2 text-[#8A7060]"></i> 주요 일정 D-DAY
                     </h2>
-                    <button onclick="openDdayModal()" class="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-xl transition font-medium backdrop-blur-md">
+                    <button onclick="openDdayModal()" class="text-xs bg-[#F5F1EA] hover:bg-[#EFECE6] text-[#6E615A] border border-[#E5DFD4] px-3 py-1.5 rounded-xl transition font-medium">
                         + D-Day 추가
                     </button>
                 </div>
-                <div id="dday-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 relative z-10">
-                    <!-- D-Day 카드가 JS로 생성됨 -->
+                <div id="dday-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    <!-- D-Day 카드 JS 생성 -->
                 </div>
             </div>
 
-            <!-- 달력 컨트롤러 & 메인 달력 -->
-            <div class="card-bg rounded-3xl p-5 sm:p-7 border">
-                <!-- 월 선택 헤더 -->
-                <div class="flex justify-between items-center mb-6">
+            <!-- 단 1개의 월간 먼슬리 플래너 카운터 & 그리드 -->
+            <div class="paper-card p-5 sm:p-7">
+                <!-- 월/년 헤더 -->
+                <div class="flex justify-between items-center mb-6 border-b border-[#F5F1EA] pb-4">
                     <div class="flex items-center space-x-3">
-                        <h2 id="calendar-month-year" class="text-xl sm:text-2xl font-extrabold tracking-tight">2026년 11월</h2>
-                        <button onclick="goToToday()" class="text-xs badge-bg px-3 py-1 rounded-lg font-semibold transition hover:opacity-80">
+                        <h2 id="calendar-month-year" class="font-myeongjo font-bold text-xl sm:text-2xl text-[#362F2D]">2026년 11월</h2>
+                        <button onclick="goToToday()" class="text-xs bg-[#F5F1EA] text-[#6E615A] px-2.5 py-1 rounded-lg border border-[#E5DFD4] hover:bg-[#EFECE6] font-medium transition">
                             오늘
                         </button>
                     </div>
-                    <div class="flex space-x-1.5">
-                        <button onclick="changeMonth(-1)" class="w-9 h-9 rounded-xl border border-slate-300 hover:bg-black/5 flex items-center justify-center transition active:scale-95">
+                    <div class="flex space-x-1">
+                        <button onclick="changeMonth(-1)" class="w-8 h-8 rounded-xl border border-[#E5DFD4] bg-[#FFFFFF] hover:bg-[#FBF9F5] text-[#6E615A] flex items-center justify-center transition">
                             <i class="fa-solid fa-chevron-left text-xs"></i>
                         </button>
-                        <button onclick="changeMonth(1)" class="w-9 h-9 rounded-xl border border-slate-300 hover:bg-black/5 flex items-center justify-center transition active:scale-95">
+                        <button onclick="changeMonth(1)" class="w-8 h-8 rounded-xl border border-[#E5DFD4] bg-[#FFFFFF] hover:bg-[#FBF9F5] text-[#6E615A] flex items-center justify-center transition">
                             <i class="fa-solid fa-chevron-right text-xs"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- 달력 요일 헤더 -->
-                <div class="grid grid-cols-7 gap-1 text-center font-bold text-xs sub-text mb-3">
-                    <div class="text-rose-500">일</div>
+                <div class="grid grid-cols-7 gap-1 text-center font-medium text-xs text-[#8C827A] mb-2">
+                    <div class="text-[#C06060]">일</div>
                     <div>월</div>
                     <div>화</div>
                     <div>수</div>
                     <div>목</div>
                     <div>금</div>
-                    <div class="text-indigo-500">토</div>
+                    <div class="text-[#5A7A90]">토</div>
                 </div>
 
                 <!-- 달력 그리드 -->
-                <div id="calendar-grid" class="grid grid-cols-7 gap-1.5 sm:gap-2">
+                <div id="calendar-grid" class="grid grid-cols-7 gap-1 sm:gap-1.5">
                     <!-- 날짜 셀 JS 생성 -->
                 </div>
             </div>
@@ -291,47 +449,46 @@
 
         <!-- ================= 2. 과목별 할 일 탭 ================= -->
         <section id="view-todo" class="tab-view hidden space-y-5">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 card-bg p-5 rounded-3xl border">
+            <div class="paper-card p-5 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                 <div>
-                    <h2 class="text-lg font-bold">과목별 할 일</h2>
-                    <p class="text-xs sub-text mt-0.5">과목 카드를 누르면 하단에 입력창 및 완료 상태(◯ △ ✕ ➔) 옵션이 열립니다.</p>
+                    <h2 class="font-myeongjo font-bold text-base text-[#362F2D]">과목별 학습 할 일</h2>
+                    <p class="text-xs text-[#8C7E77] mt-0.5">과목 카드를 누르면 하단에 입력창과 진행 상태(◯ △ ✕ ➔) 변경 메뉴가 나타납니다.</p>
                 </div>
-                <button onclick="openSubjectModal()" class="self-start sm:self-auto px-4 py-2.5 btn-primary text-xs font-semibold transition flex items-center shadow-md">
-                    <i class="fa-solid fa-sliders mr-2"></i>과목 / 색상 설정
+                <button onclick="openSubjectModal()" class="self-start sm:self-auto px-3.5 py-2 bg-[#8A7060] hover:bg-[#776051] text-[#FFFFFF] text-xs font-medium rounded-xl transition shadow-xs flex items-center">
+                    <i class="fa-solid fa-sliders mr-1.5"></i>과목 및 색상 지정
                 </button>
             </div>
 
-            <!-- 과목 및 할 일 목록 (아코디언/스와이프형 스타일) -->
             <div id="subjects-todo-container" class="space-y-3.5">
-                <!-- 과목별 카드가 Dynamic하게 출력됨 -->
+                <!-- Dynamic Render -->
             </div>
         </section>
 
         <!-- ================= 3. 시간표 탭 (학교 & 학원) ================= -->
         <section id="view-schedule" class="tab-view hidden space-y-6">
             <!-- 학교 시간표 -->
-            <div class="card-bg rounded-3xl p-5 sm:p-6 border">
-                <div class="flex justify-between items-center mb-5">
+            <div class="paper-card p-5 sm:p-6">
+                <div class="flex justify-between items-center mb-4 border-b border-[#F5F1EA] pb-3">
                     <div>
-                        <h2 class="text-base font-bold flex items-center">
-                            <i class="fa-solid fa-school text-amber-600 mr-2"></i>학교 시간표
+                        <h2 class="font-myeongjo font-bold text-base text-[#362F2D] flex items-center">
+                            <i class="fa-solid fa-graduation-cap mr-2 text-[#8A7060]"></i>학교 주간 시간표
                         </h2>
-                        <p class="text-xs sub-text mt-0.5">원하는 교시 셀을 클릭하여 과목을 입력하세요.</p>
+                        <p class="text-xs text-[#8C7E77] mt-0.5">각 교시 칸을 눌러 과목명을 직접 입력하세요.</p>
                     </div>
                 </div>
-                <div class="overflow-x-auto rounded-2xl border border-black/10">
+                <div class="overflow-x-auto rounded-xl border border-[#EAE5DC]">
                     <table class="w-full text-center border-collapse min-w-[480px]">
                         <thead>
-                            <tr class="badge-bg text-xs font-bold border-b border-black/10">
-                                <th class="p-3 w-16">교시</th>
-                                <th class="p-3">월</th>
-                                <th class="p-3">화</th>
-                                <th class="p-3">수</th>
-                                <th class="p-3">목</th>
-                                <th class="p-3">금</th>
+                            <tr class="bg-[#F5F1EA] text-xs font-semibold text-[#6E615A] border-b border-[#E5DFD4]">
+                                <th class="p-2.5 w-16 border-r border-[#E5DFD4]">교시</th>
+                                <th class="p-2.5 border-r border-[#E5DFD4]">월</th>
+                                <th class="p-2.5 border-r border-[#E5DFD4]">화</th>
+                                <th class="p-2.5 border-r border-[#E5DFD4]">수</th>
+                                <th class="p-2.5 border-r border-[#E5DFD4]">목</th>
+                                <th class="p-2.5">금</th>
                             </tr>
                         </thead>
-                        <tbody id="school-timetable-body" class="text-xs divide-y divide-black/5">
+                        <tbody id="school-timetable-body" class="text-xs divide-y divide-[#F0EBE1]">
                             <!-- 1~7교시 행 JS 생성 -->
                         </tbody>
                     </table>
@@ -339,16 +496,16 @@
             </div>
 
             <!-- 학원 시간표 -->
-            <div class="card-bg rounded-3xl p-5 sm:p-6 border">
-                <div class="flex justify-between items-center mb-5">
+            <div class="paper-card p-5 sm:p-6">
+                <div class="flex justify-between items-center mb-4 border-b border-[#F5F1EA] pb-3">
                     <div>
-                        <h2 class="text-base font-bold flex items-center">
-                            <i class="fa-solid fa-clock text-amber-700 mr-2"></i>학원 / 과외 시간표
+                        <h2 class="font-myeongjo font-bold text-base text-[#362F2D] flex items-center">
+                            <i class="fa-regular fa-clock mr-2 text-[#8A7060]"></i>학원 및 과외 수강 일정
                         </h2>
-                        <p class="text-xs sub-text mt-0.5">수강 일정 및 과외 시간을 자유롭게 추가·수정할 수 있습니다.</p>
+                        <p class="text-xs text-[#8C7E77] mt-0.5">자율 학습 외 정기 수강 일정을 입력/수정할 수 있습니다.</p>
                     </div>
-                    <button onclick="openAcademyModal()" class="px-4 py-2 btn-primary text-xs font-semibold transition">
-                        + 학원 추가
+                    <button onclick="openAcademyModal()" class="px-3.5 py-1.5 bg-[#8A7060] hover:bg-[#776051] text-[#FFFFFF] text-xs font-medium rounded-xl transition">
+                        + 학원 일정 추가
                     </button>
                 </div>
                 <div id="academy-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
@@ -356,167 +513,179 @@
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- MODALS -->
-    <!-- 과목 편집 모달 -->
-    <div id="modal-subject" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-5 shadow-2xl text-slate-800">
-            <div class="flex justify-between items-center">
-                <h3 class="font-bold text-base">과목 구성 및 색상 지정</h3>
-                <button onclick="closeModal('modal-subject')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+    <!-- ================= MODAL DIALOGS ================= -->
+    <!-- 1. 과목 편집 모달 -->
+    <div id="modal-subject" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="paper-card max-w-sm w-full p-6 space-y-4 shadow-xl">
+            <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2.5">
+                <h3 class="font-myeongjo font-bold text-base text-[#362F2D]">과목 구성 및 색상 지정</h3>
+                <button onclick="closeModal('modal-subject')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
             <div id="subject-manage-list" class="space-y-2 max-h-60 overflow-y-auto pr-1">
-                <!-- JS 생성 -->
+                <!-- JS Render -->
             </div>
-            <div class="pt-3 border-t border-slate-100 flex gap-2">
-                <input type="text" id="new-subject-name" placeholder="새 과목 (예: 정보)" class="flex-1 border rounded-xl px-3 py-2 text-xs bg-slate-50">
-                <input type="color" id="new-subject-color" value="#7c5a43" class="w-9 h-9 rounded-xl cursor-pointer border p-0.5">
-                <button onclick="addNewSubject()" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-semibold">추가</button>
+            <div class="pt-3 border-t border-[#F5F1EA] flex gap-2">
+                <input type="text" id="new-subject-name" placeholder="새 과목 (예: 정보)" class="flex-1 border border-[#E5DFD4] rounded-xl px-3 py-2 text-xs bg-[#FFFFFF] focus:outline-none focus:border-[#8A7060]">
+                <input type="color" id="new-subject-color" value="#8C7E6C" class="w-9 h-9 rounded-xl cursor-pointer border border-[#E5DFD4] p-0.5 bg-white">
+                <button onclick="addNewSubject()" class="bg-[#8A7060] text-white px-3.5 py-2 rounded-xl text-xs font-medium">추가</button>
             </div>
         </div>
     </div>
 
-    <!-- 미루기 날짜 선택 모달 -->
-    <div id="modal-postpone" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-xs w-full p-6 space-y-4 shadow-2xl text-slate-800">
-            <div class="flex justify-between items-center">
-                <h3 class="font-bold text-base">할 일 미루기</h3>
-                <button onclick="closeModal('modal-postpone')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+    <!-- 2. 미루기 날짜 선택 모달 -->
+    <div id="modal-postpone" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="paper-card max-w-xs w-full p-5 space-y-4 shadow-xl">
+            <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2">
+                <h3 class="font-myeongjo font-bold text-base text-[#362F2D]">할 일 미루기</h3>
+                <button onclick="closeModal('modal-postpone')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
-            <p class="text-xs text-slate-500">변경하고자 하는 목표 날짜를 선택해주세요.</p>
-            <input type="date" id="postpone-date-input" class="w-full border rounded-xl p-2.5 text-xs bg-slate-50">
-            <button onclick="confirmPostpone()" class="w-full bg-slate-900 text-white py-2.5 rounded-xl font-semibold text-xs shadow-md">
-                날짜 변경 확정
+            <p class="text-xs text-[#8C7E77]">이동하고자 하는 목표 날짜를 지정해주세요.</p>
+            <input type="date" id="postpone-date-input" class="w-full border border-[#E5DFD4] rounded-xl p-2.5 text-xs bg-[#FFFFFF] focus:outline-none focus:border-[#8A7060]">
+            <button onclick="confirmPostpone()" class="w-full bg-[#8A7060] hover:bg-[#776051] text-white py-2 rounded-xl font-medium text-xs transition">
+                변경 확정
             </button>
         </div>
     </div>
 
-    <!-- 학원 추가/수정 모달 -->
-    <div id="modal-academy" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-slate-800">
-            <div class="flex justify-between items-center">
-                <h3 id="academy-modal-title" class="font-bold text-base">학원 일정 추가</h3>
-                <button onclick="closeModal('modal-academy')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+    <!-- 3. 학원 추가/수정 모달 -->
+    <div id="modal-academy" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="paper-card max-w-sm w-full p-6 space-y-4 shadow-xl">
+            <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2.5">
+                <h3 id="academy-modal-title" class="font-myeongjo font-bold text-base text-[#362F2D]">학원 일정 추가</h3>
+                <button onclick="closeModal('modal-academy')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
             <input type="hidden" id="academy-edit-id">
             <div class="space-y-3 text-xs">
                 <div>
-                    <label class="block font-semibold text-slate-600 mb-1">학원 / 과외 이름</label>
-                    <input type="text" id="academy-name" placeholder="예: 대성 수학학원" class="w-full border rounded-xl p-2.5 bg-slate-50">
+                    <label class="block font-medium text-[#6E615A] mb-1">학원 / 과외 명칭</label>
+                    <input type="text" id="academy-name" placeholder="예: 탐구 수학학원" class="w-full border border-[#E5DFD4] rounded-xl p-2.5 bg-[#FFFFFF] focus:outline-none focus:border-[#8A7060]">
                 </div>
                 <div>
-                    <label class="block font-semibold text-slate-600 mb-1">요일 선택</label>
+                    <label class="block font-medium text-[#6E615A] mb-1">수강 요일</label>
                     <div class="flex justify-between gap-1" id="academy-days-group">
-                        <button type="button" data-day="월" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">월</button>
-                        <button type="button" data-day="화" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">화</button>
-                        <button type="button" data-day="수" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">수</button>
-                        <button type="button" data-day="목" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">목</button>
-                        <button type="button" data-day="금" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">금</button>
-                        <button type="button" data-day="토" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">토</button>
-                        <button type="button" data-day="일" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border text-xs font-semibold">일</button>
+                        <button type="button" data-day="월" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border border-[#E5DFD4] text-xs font-medium bg-[#FFFFFF]">월</button>
+                        <button type="button" data-day="화" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border border-[#E5DFD4] text-xs font-medium bg-[#FFFFFF]">화</button>
+                        <button type="button" data-day="수" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border border-[#E5DFD4] text-xs font-medium bg-[#FFFFFF]">수</button>
+                        <button type="button" data-day="목" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border border-[#E5DFD4] text-xs font-medium bg-[#FFFFFF]">목</button>
+                        <button type="button" data-day="금" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border border-[#E5DFD4] text-xs font-medium bg-[#FFFFFF]">금</button>
+                        <button type="button" data-day="토" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border border-[#E5DFD4] text-xs font-medium bg-[#FFFFFF]">토</button>
+                        <button type="button" data-day="일" onclick="toggleDaySelection(this)" class="day-btn flex-1 py-1.5 rounded-lg border border-[#E5DFD4] text-xs font-medium bg-[#FFFFFF]">일</button>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="block font-semibold text-slate-600 mb-1">시작 시간</label>
-                        <input type="time" id="academy-start" class="w-full border rounded-xl p-2 bg-slate-50">
+                        <label class="block font-medium text-[#6E615A] mb-1">시작 시간</label>
+                        <input type="time" id="academy-start" class="w-full border border-[#E5DFD4] rounded-xl p-2 bg-[#FFFFFF]">
                     </div>
                     <div>
-                        <label class="block font-semibold text-slate-600 mb-1">종료 시간</label>
-                        <input type="time" id="academy-end" class="w-full border rounded-xl p-2 bg-slate-50">
+                        <label class="block font-medium text-[#6E615A] mb-1">종료 시간</label>
+                        <input type="time" id="academy-end" class="w-full border border-[#E5DFD4] rounded-xl p-2 bg-[#FFFFFF]">
                     </div>
                 </div>
                 <div>
-                    <label class="block font-semibold text-slate-600 mb-1">태그 색상</label>
-                    <input type="color" id="academy-color" value="#7c5a43" class="w-full h-8 rounded-xl cursor-pointer border p-0.5 bg-white">
+                    <label class="block font-medium text-[#6E615A] mb-1">구분 라벨 색상</label>
+                    <input type="color" id="academy-color" value="#8A7060" class="w-full h-8 rounded-xl cursor-pointer border border-[#E5DFD4] p-0.5 bg-white">
                 </div>
             </div>
-            <button onclick="saveAcademy()" class="w-full bg-slate-900 text-white py-2.5 rounded-xl font-semibold text-xs shadow-md">
+            <button onclick="saveAcademy()" class="w-full bg-[#8A7060] hover:bg-[#776051] text-white py-2.5 rounded-xl font-medium text-xs transition shadow-xs">
                 저장하기
             </button>
         </div>
     </div>
 
-    <!-- D-Day 추가 모달 -->
-    <div id="modal-dday" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-xs w-full p-6 space-y-4 shadow-2xl text-slate-800">
-            <div class="flex justify-between items-center">
-                <h3 class="font-bold text-base">D-Day 추가</h3>
-                <button onclick="closeModal('modal-dday')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+    <!-- 4. D-Day 추가 모달 -->
+    <div id="modal-dday" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="paper-card max-w-xs w-full p-5 space-y-4 shadow-xl">
+            <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2">
+                <h3 class="font-myeongjo font-bold text-base text-[#362F2D]">D-Day 일정 추가</h3>
+                <button onclick="closeModal('modal-dday')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
             <div class="space-y-3 text-xs">
                 <div>
-                    <label class="block font-semibold text-slate-600 mb-1">일정 / 목표 명칭</label>
-                    <input type="text" id="dday-title" placeholder="예: 2학기 기말고사" class="w-full border rounded-xl p-2.5 bg-slate-50">
+                    <label class="block font-medium text-[#6E615A] mb-1">시험 및 일정명</label>
+                    <input type="text" id="dday-title" placeholder="예: 2학기 기말고사" class="w-full border border-[#E5DFD4] rounded-xl p-2.5 bg-[#FFFFFF] focus:outline-none focus:border-[#8A7060]">
                 </div>
                 <div>
-                    <label class="block font-semibold text-slate-600 mb-1">목표 날짜</label>
-                    <input type="date" id="dday-date" class="w-full border rounded-xl p-2.5 bg-slate-50">
+                    <label class="block font-medium text-[#6E615A] mb-1">목표 날짜</label>
+                    <input type="date" id="dday-date" class="w-full border border-[#E5DFD4] rounded-xl p-2.5 bg-[#FFFFFF] focus:outline-none focus:border-[#8A7060]">
                 </div>
             </div>
-            <button onclick="saveDday()" class="w-full bg-slate-900 text-white py-2.5 rounded-xl font-semibold text-xs shadow-md">
+            <button onclick="saveDday()" class="w-full bg-[#8A7060] hover:bg-[#776051] text-white py-2.5 rounded-xl font-medium text-xs transition shadow-xs">
                 등록하기
             </button>
         </div>
     </div>
 
-    <!-- 학교 시간표 셀 편집 모달 -->
-    <div id="modal-school-cell" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-xs w-full p-6 space-y-4 shadow-2xl text-slate-800">
-            <div class="flex justify-between items-center">
-                <h3 class="font-bold text-base">시간표 입력</h3>
-                <button onclick="closeModal('modal-school-cell')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+    <!-- 5. 학교 시간표 셀 편집 모달 -->
+    <div id="modal-school-cell" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="paper-card max-w-xs w-full p-5 space-y-4 shadow-xl">
+            <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2">
+                <h3 class="font-myeongjo font-bold text-base text-[#362F2D]">교시 과목 입력</h3>
+                <button onclick="closeModal('modal-school-cell')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
             <input type="hidden" id="cell-day-index">
             <input type="hidden" id="cell-period-index">
             <div>
-                <input type="text" id="cell-subject-name" placeholder="과목명 (예: 수학)" class="w-full border rounded-xl p-2.5 text-xs bg-slate-50">
+                <input type="text" id="cell-subject-name" placeholder="과목명 (예: 수학)" class="w-full border border-[#E5DFD4] rounded-xl p-2.5 text-xs bg-[#FFFFFF] focus:outline-none focus:border-[#8A7060]">
             </div>
-            <button onclick="saveSchoolCell()" class="w-full bg-slate-900 text-white py-2.5 rounded-xl font-semibold text-xs shadow-md">
+            <button onclick="saveSchoolCell()" class="w-full bg-[#8A7060] hover:bg-[#776051] text-white py-2 rounded-xl font-medium text-xs transition">
                 저장
             </button>
         </div>
     </div>
 
-    <!-- JS 스크립트 영역 -->
+    <!-- ================= JAVASCRIPT CORE ================= -->
     <script>
-        // ================= GLOBAL STATE =================
+        // GLOBAL STATE
         let currentDate = new Date();
         let activeTab = 'calendar';
         let postponingTodoId = null;
-        let currentTheme = localStorage.getItem('planner_theme') || 'vintage';
+        let statsPeriod = 'weekly'; // 'weekly' | 'monthly'
 
-        // Default Subjects with Warm Vintage/Pastel Colors
-        let subjects = JSON.parse(localStorage.getItem('planner_subjects')) || [
-            { id: 'sub_1', name: '국어', color: '#c05621' },
-            { id: 'sub_2', name: '수학', color: '#2b6cb0' },
-            { id: 'sub_3', name: '영어', color: '#2f855a' },
-            { id: 'sub_4', name: '과학', color: '#6b46c1' },
-            { id: 'sub_5', name: '사회', color: '#d69e2e' },
-            { id: 'sub_6', name: '한국사', color: '#b83280' },
-            { id: 'sub_7', name: '기타', color: '#718096' }
+        // TIMER STATE
+        let timerInterval = null;
+        let isTimerRunning = false;
+        let timerMode = 'normal'; // 'normal' | 'pomo'
+        let timerSeconds = 0;
+        let pomoFocusMinutes = 25;
+        let pomoRestMinutes = 5;
+        let pomoSeconds = pomoFocusMinutes * 60;
+        let isPomoRest = false;
+        let currentTimerSubjectId = null;
+
+        let studyLogs = JSON.parse(localStorage.getItem('planner_study_logs')) || {};
+
+        const defaultSubjects = [
+            { id: 'sub_1', name: '국어', color: '#B68282' },
+            { id: 'sub_2', name: '수학', color: '#6A8B9C' },
+            { id: 'sub_3', name: '영어', color: '#7EA185' },
+            { id: 'sub_4', name: '과학', color: '#8D7EA1' },
+            { id: 'sub_5', name: '사회', color: '#BE9A6B' },
+            { id: 'sub_6', name: '한국사', color: '#A88273' },
+            { id: 'sub_7', name: '기타', color: '#8A857C' }
         ];
 
+        let subjects = JSON.parse(localStorage.getItem('planner_subjects')) || defaultSubjects;
         let todos = JSON.parse(localStorage.getItem('planner_todos')) || [
             { id: 't1', subjectId: 'sub_2', text: '쎈 수학 34p~40p 풀기', status: 'O', date: formatDate(new Date()) },
             { id: 't2', subjectId: 'sub_3', text: '수능특강 영어 3강 단어 암기', status: 'TRIANGLE', date: formatDate(new Date()) }
         ];
 
         let academies = JSON.parse(localStorage.getItem('planner_academies')) || [
-            { id: 'ac_1', name: '탐구 수학학원', days: ['월', '수', '금'], start: '18:00', end: '21:00', color: '#7c5a43' },
-            { id: 'ac_2', name: '명문 영어과외', days: ['화', '목'], start: '19:30', end: '21:00', color: '#2f855a' }
+            { id: 'ac_1', name: '탐구 수학학원', days: ['월', '수', '금'], start: '18:00', end: '21:00', color: '#5E4D44' },
+            { id: 'ac_2', name: '명문 영어과외', days: ['화', '목'], start: '19:30', end: '21:00', color: '#7EA185' }
         ];
 
         let ddays = JSON.parse(localStorage.getItem('planner_ddays')) || [
@@ -526,23 +695,17 @@
 
         let schoolTimetable = JSON.parse(localStorage.getItem('planner_school_tt')) || Array(7).fill(null).map(() => Array(5).fill(''));
 
-        // ================= INITIALIZATION =================
         window.onload = function() {
-            applyTheme(currentTheme);
-            document.getElementById('theme-selector').value = currentTheme;
             updateCurrentDateHeader();
             renderCalendar();
             renderDdays();
             renderTodos();
             renderSchoolTimetable();
             renderAcademies();
+            initTimerSubjects();
+            renderStudyStats();
+            renderCompletionStats();
         };
-
-        function applyTheme(themeName) {
-            currentTheme = themeName;
-            document.body.className = `theme-${themeName} text-slate-800 antialiased min-h-screen flex flex-col selection:bg-amber-500 selection:text-white`;
-            localStorage.setItem('planner_theme', themeName);
-        }
 
         function saveAll() {
             localStorage.setItem('planner_subjects', JSON.stringify(subjects));
@@ -550,6 +713,347 @@
             localStorage.setItem('planner_academies', JSON.stringify(academies));
             localStorage.setItem('planner_ddays', JSON.stringify(ddays));
             localStorage.setItem('planner_school_tt', JSON.stringify(schoolTimetable));
+            localStorage.setItem('planner_study_logs', JSON.stringify(studyLogs));
+        }
+
+        // ===== STATS & COMPLETION RATE FUNCTIONS =====
+        function setStatsPeriod(period) {
+            statsPeriod = period;
+            const weekBtn = document.getElementById('stats-weekly-btn');
+            const monthBtn = document.getElementById('stats-monthly-btn');
+
+            if(period === 'weekly') {
+                weekBtn.className = "px-3.5 py-1.5 rounded-lg font-bold text-[#8A7060] bg-white shadow-2xs";
+                monthBtn.className = "px-3.5 py-1.5 rounded-lg font-medium text-[#8C7E77] hover:bg-white/50";
+            } else {
+                monthBtn.className = "px-3.5 py-1.5 rounded-lg font-bold text-[#8A7060] bg-white shadow-2xs";
+                weekBtn.className = "px-3.5 py-1.5 rounded-lg font-medium text-[#8C7E77] hover:bg-white/50";
+            }
+            renderCompletionStats();
+        }
+
+        function renderCompletionStats() {
+            const today = new Date();
+            let targetTodos = [];
+            let startDateStr = '';
+            let endDateStr = '';
+
+            if(statsPeriod === 'weekly') {
+                const currentDay = today.getDay();
+                const diffToMonday = today.getDate() - currentDay + (currentDay === 0 ? -6 : 1);
+                const monday = new Date(today.setDate(diffToMonday));
+                monday.setHours(0,0,0,0);
+
+                const sunday = new Date(monday);
+                sunday.setDate(monday.getDate() + 6);
+                sunday.setHours(23,59,59,999);
+
+                startDateStr = formatDate(monday);
+                endDateStr = formatDate(sunday);
+
+                targetTodos = todos.filter(t => {
+                    return t.date >= startDateStr && t.date <= endDateStr;
+                });
+            } else {
+                const year = today.getFullYear();
+                const month = today.getMonth();
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+
+                startDateStr = formatDate(firstDay);
+                endDateStr = formatDate(lastDay);
+
+                targetTodos = todos.filter(t => {
+                    const tDate = new Date(t.date);
+                    return tDate.getFullYear() === year && tDate.getMonth() === month;
+                });
+            }
+
+            // --- 1. 공부시간 계산 ---
+            let periodTotalSec = 0;
+            const subjectTimeMap = {};
+            subjects.forEach(s => subjectTimeMap[s.id] = 0);
+
+            Object.keys(studyLogs).forEach(dateStr => {
+                if(dateStr >= startDateStr && dateStr <= endDateStr) {
+                    const dayLog = studyLogs[dateStr] || {};
+                    Object.keys(dayLog).forEach(subId => {
+                        const sec = dayLog[subId] || 0;
+                        periodTotalSec += sec;
+                        subjectTimeMap[subId] = (subjectTimeMap[subId] || 0) + sec;
+                    });
+                }
+            });
+
+            const pHours = Math.floor(periodTotalSec / 3600);
+            const pMins = Math.floor((periodTotalSec % 3600) / 60);
+            document.getElementById('period-total-time').innerText = `${pHours}시간 ${pMins}분`;
+            document.getElementById('period-time-sub').innerText = statsPeriod === 'weekly' ? '이번 주 누적 순공 시간' : '이번 달 누적 순공 시간';
+
+            // 과목별 공부시간 바 렌더링
+            const timeContainer = document.getElementById('subject-time-bars');
+            timeContainer.innerHTML = '';
+            subjects.forEach(sub => {
+                const sec = subjectTimeMap[sub.id] || 0;
+                const h = Math.floor(sec / 3600);
+                const m = Math.floor((sec % 3600) / 60);
+                const percent = periodTotalSec > 0 ? Math.min(Math.round((sec / periodTotalSec) * 100), 100) : 0;
+
+                const card = document.createElement('div');
+                card.className = "bg-[#FBF9F5] p-3.5 rounded-xl border border-[#E5DFD4] space-y-2";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center text-xs font-semibold">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full" style="background-color: ${sub.color}"></span>
+                            <span class="text-[#362F2D]">${sub.name}</span>
+                        </div>
+                        <span class="text-[#8C7E77] font-medium">${h > 0 ? h + '시간 ' : ''}${m}분 <span class="text-[#8A7060] font-bold">(${percent}%)</span></span>
+                    </div>
+                    <div class="w-full bg-[#EFECE6] h-2 rounded-full overflow-hidden border border-[#E5DFD4]">
+                        <div class="h-full rounded-full transition-all duration-500" style="width: ${percent}%; background-color: ${sub.color}"></div>
+                    </div>
+                `;
+                timeContainer.appendChild(card);
+            });
+
+            // --- 2. 할 일 달성률 계산 ---
+            const countO = targetTodos.filter(t => t.status === 'O').length;
+            const countTriangle = targetTodos.filter(t => t.status === 'TRIANGLE').length;
+            const countX = targetTodos.filter(t => t.status === 'X').length;
+            const countPostpone = targetTodos.filter(t => t.status === 'POSTPONE').length;
+
+            document.getElementById('stat-count-o').innerText = countO;
+            document.getElementById('stat-count-triangle').innerText = countTriangle;
+            document.getElementById('stat-count-x').innerText = countX;
+            document.getElementById('stat-count-postpone').innerText = countPostpone;
+
+            const totalCount = targetTodos.length;
+            const score = totalCount > 0 ? Math.round(((countO + countTriangle * 0.5) / totalCount) * 100) : 0;
+
+            document.getElementById('total-completion-rate').innerText = `${score}%`;
+            document.getElementById('total-completion-sub').innerText = `${totalCount}개 할 일 중 ${countO}개 완수`;
+            document.getElementById('total-completion-bar').style.width = `${score}%`;
+
+            const container = document.getElementById('subject-completion-bars');
+            container.innerHTML = '';
+
+            subjects.forEach(sub => {
+                const subTodos = targetTodos.filter(t => t.subjectId === sub.id);
+                const subTotal = subTodos.length;
+                const subDone = subTodos.filter(t => t.status === 'O').length;
+                const subHalf = subTodos.filter(t => t.status === 'TRIANGLE').length;
+
+                const subRate = subTotal > 0 ? Math.round(((subDone + subHalf * 0.5) / subTotal) * 100) : 0;
+
+                const card = document.createElement('div');
+                card.className = "bg-[#FBF9F5] p-3.5 rounded-xl border border-[#E5DFD4] space-y-2";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center text-xs font-semibold">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full" style="background-color: ${sub.color}"></span>
+                            <span class="text-[#362F2D]">${sub.name}</span>
+                            <span class="text-[11px] text-[#8C7E77] font-normal">(${subDone}/${subTotal} 완료)</span>
+                        </div>
+                        <span class="font-myeongjo font-bold text-[#8A7060] text-sm">${subRate}%</span>
+                    </div>
+                    <div class="w-full bg-[#EFECE6] h-2 rounded-full overflow-hidden border border-[#E5DFD4]">
+                        <div class="h-full rounded-full transition-all duration-500" style="width: ${subRate}%; background-color: ${sub.color}"></div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ===== TIMER FUNCTIONS =====
+        function initTimerSubjects() {
+            const select = document.getElementById('timer-subject-select');
+            select.innerHTML = '';
+            subjects.forEach(sub => {
+                const opt = document.createElement('option');
+                opt.value = sub.id;
+                opt.innerText = sub.name;
+                select.appendChild(opt);
+            });
+            if(subjects.length > 0) currentTimerSubjectId = subjects[0].id;
+        }
+
+        function onTimerSubjectChange() {
+            currentTimerSubjectId = document.getElementById('timer-subject-select').value;
+        }
+
+        function setTimerMode(mode) {
+            if(isTimerRunning) {
+                alert('타이머가 실행 중일 때는 모드를 변경할 수 없습니다.');
+                return;
+            }
+            timerMode = mode;
+            const normBtn = document.getElementById('mode-normal-btn');
+            const pomoBtn = document.getElementById('mode-pomo-btn');
+            const badge = document.getElementById('pomo-status-badge');
+            const settingsGroup = document.getElementById('pomo-settings-group');
+
+            if(mode === 'normal') {
+                normBtn.className = "px-4 py-1.5 rounded-lg font-bold text-[#8A7060] bg-white shadow-2xs";
+                pomoBtn.className = "px-4 py-1.5 rounded-lg font-medium text-[#8C7E77] hover:bg-white/50";
+                badge.classList.add('hidden');
+                settingsGroup.classList.add('hidden');
+                document.getElementById('timer-display').innerText = formatHMS(timerSeconds);
+            } else {
+                pomoBtn.className = "px-4 py-1.5 rounded-lg font-bold text-[#8A7060] bg-white shadow-2xs";
+                normBtn.className = "px-4 py-1.5 rounded-lg font-medium text-[#8C7E77] hover:bg-white/50";
+                badge.classList.remove('hidden');
+                settingsGroup.classList.remove('hidden');
+                badge.innerText = isPomoRest ? `${pomoRestMinutes}분 휴식 시간` : `${pomoFocusMinutes}분 집중 시간`;
+                document.getElementById('timer-display').innerText = formatHMS(pomoSeconds);
+            }
+        }
+
+        function updatePomoSettings() {
+            if(isTimerRunning) {
+                alert('타이머 실행 중에는 시간을 변경할 수 없습니다.');
+                return;
+            }
+            const focusInput = parseInt(document.getElementById('pomo-focus-min').value) || 25;
+            const restInput = parseInt(document.getElementById('pomo-rest-min').value) || 5;
+
+            pomoFocusMinutes = Math.max(1, focusInput);
+            pomoRestMinutes = Math.max(1, restInput);
+
+            if(!isPomoRest) {
+                pomoSeconds = pomoFocusMinutes * 60;
+                document.getElementById('pomo-status-badge').innerText = `${pomoFocusMinutes}분 집중 시간`;
+            } else {
+                pomoSeconds = pomoRestMinutes * 60;
+                document.getElementById('pomo-status-badge').innerText = `${pomoRestMinutes}분 휴식 시간`;
+            }
+
+            if(timerMode === 'pomo') {
+                document.getElementById('timer-display').innerText = formatHMS(pomoSeconds);
+            }
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('timer-start-btn');
+            if(isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                document.body.classList.remove('timer-active');
+                btn.innerHTML = `<i class="fa-solid fa-play mr-2"></i> 시작`;
+                btn.classList.replace('bg-[#C06060]', 'bg-[#8A7060]');
+            } else {
+                isTimerRunning = true;
+                document.body.classList.add('timer-active');
+                btn.innerHTML = `<i class="fa-solid fa-pause mr-2"></i> 일시정지`;
+                btn.classList.replace('bg-[#8A7060]', 'bg-[#C06060]');
+
+                timerInterval = setInterval(() => {
+                    const todayStr = formatDate(new Date());
+                    if(!studyLogs[todayStr]) studyLogs[todayStr] = {};
+
+                    if(timerMode === 'normal') {
+                        timerSeconds++;
+                        document.getElementById('timer-display').innerText = formatHMS(timerSeconds);
+                        if(currentTimerSubjectId) {
+                            studyLogs[todayStr][currentTimerSubjectId] = (studyLogs[todayStr][currentTimerSubjectId] || 0) + 1;
+                        }
+                    } else {
+                        pomoSeconds--;
+                        document.getElementById('timer-display').innerText = formatHMS(pomoSeconds);
+
+                        if(!isPomoRest && currentTimerSubjectId) {
+                            studyLogs[todayStr][currentTimerSubjectId] = (studyLogs[todayStr][currentTimerSubjectId] || 0) + 1;
+                        }
+
+                        if(pomoSeconds <= 0) {
+                            isPomoRest = !isPomoRest;
+                            const badge = document.getElementById('pomo-status-badge');
+                            if(isPomoRest) {
+                                pomoSeconds = pomoRestMinutes * 60;
+                                badge.innerText = `${pomoRestMinutes}분 휴식 시간!`;
+                                badge.className = "text-xs bg-[#7EA185] text-white px-3 py-1 rounded-full font-medium mb-2 inline-block";
+                            } else {
+                                pomoSeconds = pomoFocusMinutes * 60;
+                                badge.innerText = `${pomoFocusMinutes}분 집중 시간!`;
+                                badge.className = "text-xs bg-[#8A7060] text-white px-3 py-1 rounded-full font-medium mb-2 inline-block";
+                            }
+                        }
+                    }
+
+                    saveAll();
+                    renderStudyStats();
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            if(isTimerRunning) toggleTimer();
+            document.body.classList.remove('timer-active');
+            timerSeconds = 0;
+            isPomoRest = false;
+            pomoSeconds = pomoFocusMinutes * 60;
+
+            if(timerMode === 'normal') {
+                document.getElementById('timer-display').innerText = formatHMS(0);
+            } else {
+                document.getElementById('timer-display').innerText = formatHMS(pomoSeconds);
+                const badge = document.getElementById('pomo-status-badge');
+                badge.innerText = `${pomoFocusMinutes}분 집중 시간`;
+                badge.className = "text-xs bg-[#8A7060] text-white px-3 py-1 rounded-full font-medium mb-2 inline-block";
+            }
+        }
+
+        function formatHMS(totalSeconds) {
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }
+
+        function renderStudyStats() {
+            const todayStr = formatDate(new Date());
+            document.getElementById('today-stat-date').innerText = `${todayStr}`;
+            const todayLog = studyLogs[todayStr] || {};
+
+            let totalSec = 0;
+            Object.values(todayLog).forEach(sec => totalSec += sec);
+
+            const h = Math.floor(totalSec / 3600);
+            const m = Math.floor((totalSec % 3600) / 60);
+            const s = totalSec % 60;
+
+            document.getElementById('total-study-time-display').innerText = `${h}시간 ${m}분 ${s}초`;
+
+            const container = document.getElementById('subject-study-stats');
+            container.innerHTML = '';
+
+            subjects.forEach(sub => {
+                const sec = todayLog[sub.id] || 0;
+                const subM = Math.floor(sec / 60);
+                const subS = sec % 60;
+                const percent = totalSec > 0 ? Math.min(Math.round((sec / totalSec) * 100), 100) : 0;
+
+                const row = document.createElement('div');
+                row.className = "space-y-1";
+                row.innerHTML = `
+                    <div class="flex justify-between text-xs font-medium text-[#362F2D]">
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full mr-1.5" style="background-color:${sub.color}"></span>${sub.name}</span>
+                        <span class="text-[#8C7E77]">${subM}분 ${subS}초 (${percent}%)</span>
+                    </div>
+                    <div class="w-full bg-[#F5F1EA] h-2 rounded-full overflow-hidden">
+                        <div class="h-full rounded-full transition-all duration-300" style="width: ${percent}%; background-color: ${sub.color}"></div>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function resetTodayStats() {
+            if(confirm('오늘의 공부시간 기록을 모두 삭제하시겠습니까?')) {
+                const todayStr = formatDate(new Date());
+                studyLogs[todayStr] = {};
+                saveAll();
+                renderStudyStats();
+            }
         }
 
         function formatDate(d) {
@@ -561,29 +1065,26 @@
 
         function updateCurrentDateHeader() {
             const today = new Date();
-            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
             document.getElementById('current-date-display').innerText = 
-                `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일 (${days[today.getDay()]})`;
+                `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일 ${days[today.getDay()]}`;
         }
 
-        // ================= TAB NAVIGATION =================
         function switchTab(tabName) {
             activeTab = tabName;
             document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-amber-800', 'shadow-sm', 'font-bold');
-            });
+            document.querySelectorAll('.diary-tab').forEach(btn => btn.classList.remove('active'));
 
             const selectedTab = document.getElementById(`tab-${tabName}`);
-            selectedTab.classList.add('bg-white', 'text-amber-800', 'shadow-sm', 'font-bold');
+            if(selectedTab) selectedTab.classList.add('active');
 
             document.getElementById(`view-${tabName}`).classList.remove('hidden');
 
             if(tabName === 'calendar') renderCalendar();
             if(tabName === 'todo') renderTodos();
+            if(tabName === 'stats') renderCompletionStats();
         }
 
-        // ================= 1. MONTHLY CALENDAR =================
         function renderCalendar() {
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
@@ -597,22 +1098,20 @@
             const grid = document.getElementById('calendar-grid');
             grid.innerHTML = '';
 
-            // 빈 셀
             for (let i = 0; i < firstDay; i++) {
                 const emptyCell = document.createElement('div');
-                emptyCell.className = "min-h-[70px] sm:min-h-[90px] opacity-20 rounded-2xl p-1";
+                emptyCell.className = "min-h-[76px] sm:min-h-[96px] opacity-20 rounded-xl border border-dashed border-[#E5E0D8] p-1.5 bg-black/5";
                 grid.appendChild(emptyCell);
             }
 
-            // 날짜 셀
             for (let date = 1; date <= lastDate; date++) {
                 const cellDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
                 const isToday = cellDateStr === todayStr;
                 const dayTodos = todos.filter(t => t.date === cellDateStr);
 
                 const cell = document.createElement('div');
-                cell.className = `min-h-[70px] sm:min-h-[90px] rounded-2xl p-1.5 sm:p-2 border transition flex flex-col justify-between cursor-pointer hover:scale-[1.02] ${
-                    isToday ? 'border-amber-600 bg-amber-500/10 font-bold' : 'border-black/5 bg-black/5'
+                cell.className = `min-h-[76px] sm:min-h-[96px] rounded-xl p-2 border transition flex flex-col justify-between cursor-pointer hover:border-[#8A7060]/60 ${
+                    isToday ? 'bg-[#FBF9F5] border-[#8A7060] font-bold shadow-2xs' : 'bg-[#FFFFFF] border-[#EAE5DC]'
                 }`;
 
                 let todosSummaryHtml = '';
@@ -620,22 +1119,22 @@
                     todosSummaryHtml = `<div class="space-y-1 mt-1 overflow-hidden">`;
                     dayTodos.slice(0, 3).forEach(t => {
                         const sub = subjects.find(s => s.id === t.subjectId);
-                        const color = sub ? sub.color : '#64748b';
+                        const color = sub ? sub.color : '#8A857C';
                         todosSummaryHtml += `
-                            <div class="text-[10px] truncate rounded-lg px-1.5 py-0.5 text-white font-medium" style="background-color: ${color}">
+                            <div class="text-[10px] truncate rounded-md px-1.5 py-0.5 text-white font-medium opacity-90" style="background-color: ${color}">
                                 ${t.text}
                             </div>
                         `;
                     });
                     if(dayTodos.length > 3) {
-                        todosSummaryHtml += `<div class="text-[9px] font-medium opacity-60 pl-0.5">+${dayTodos.length - 3}개 더보기</div>`;
+                        todosSummaryHtml += `<div class="text-[9px] font-medium text-[#8C7E77] pl-0.5">+${dayTodos.length - 3}개 더보기</div>`;
                     }
                     todosSummaryHtml += `</div>`;
                 }
 
                 cell.innerHTML = `
                     <div class="flex justify-between items-center">
-                        <span class="text-xs ${isToday ? 'text-amber-800 bg-amber-200/80 w-5 h-5 rounded-md flex items-center justify-center font-bold' : 'font-medium'}">${date}</span>
+                        <span class="text-xs font-medium ${isToday ? 'text-[#8A7060] bg-[#EFECE6] px-1.5 py-0.5 rounded-md font-bold' : 'text-[#362F2D]'}">${date}</span>
                     </div>
                     ${todosSummaryHtml}
                 `;
@@ -655,13 +1154,12 @@
             renderCalendar();
         }
 
-        // ================= D-DAY FUNCTIONS =================
         function renderDdays() {
             const container = document.getElementById('dday-container');
             container.innerHTML = '';
 
             if (ddays.length === 0) {
-                container.innerHTML = `<p class="text-xs opacity-80 col-span-full">등록된 D-Day가 없습니다. 추가해보세요!</p>`;
+                container.innerHTML = `<p class="text-xs text-[#8C7E77] col-span-full py-2">등록된 D-Day가 없습니다.</p>`;
                 return;
             }
 
@@ -680,13 +1178,13 @@
                 else ddayStr = `D+${Math.abs(diffDays)}`;
 
                 const card = document.createElement('div');
-                card.className = "bg-white/15 backdrop-blur-md rounded-2xl p-3 flex justify-between items-start border border-white/20 relative group";
+                card.className = "bg-[#FBF9F5] rounded-xl p-3 border border-[#E5DFD4] flex justify-between items-start relative group shadow-2xs";
                 card.innerHTML = `
                     <div>
-                        <span class="text-[11px] block font-medium truncate max-w-[90px] text-white/90">${d.title}</span>
-                        <span class="text-lg font-black tracking-tight text-white">${ddayStr}</span>
+                        <span class="text-[11px] block font-medium truncate max-w-[90px] text-[#8C7E77]">${d.title}</span>
+                        <span class="text-base sm:text-lg font-myeongjo font-bold text-[#8A7060] tracking-tight">${ddayStr}</span>
                     </div>
-                    <button onclick="deleteDday('${d.id}')" class="text-white/40 hover:text-white opacity-0 group-hover:opacity-100 transition text-xs p-0.5">
+                    <button onclick="deleteDday('${d.id}')" class="text-[#B5AAA3] hover:text-[#C06060] opacity-0 group-hover:opacity-100 transition text-xs p-0.5">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 `;
@@ -699,7 +1197,7 @@
         function saveDday() {
             const title = document.getElementById('dday-title').value.trim();
             const date = document.getElementById('dday-date').value;
-            if(!title || !date) { alert('일정 이름과 날짜를 입력해주세요.'); return; }
+            if(!title || !date) { alert('일정 이름과 날짜를 입력해 주세요.'); return; }
             ddays.push({ id: 'd_' + Date.now(), title, date });
             saveAll();
             renderDdays();
@@ -714,7 +1212,6 @@
             renderDdays();
         }
 
-        // ================= 2. SUBJECTS & TODO =================
         function renderTodos() {
             const container = document.getElementById('subjects-todo-container');
             container.innerHTML = '';
@@ -723,34 +1220,34 @@
                 const subTodos = todos.filter(t => t.subjectId === sub.id);
                 
                 const card = document.createElement('div');
-                card.className = "card-bg rounded-3xl border overflow-hidden transition-all duration-200";
+                card.className = "paper-card overflow-hidden transition-all duration-200 border border-[#EAE5DC]";
 
                 card.innerHTML = `
-                    <div onclick="toggleAccordion('${sub.id}')" class="p-4 flex items-center justify-between cursor-pointer select-none hover:opacity-80 transition">
+                    <div onclick="toggleAccordion('${sub.id}')" class="p-4 flex items-center justify-between cursor-pointer select-none hover:bg-[#FBF9F5] transition">
                         <div class="flex items-center space-x-3">
-                            <span class="w-3.5 h-3.5 rounded-full shadow-xs" style="background-color: ${sub.color}"></span>
-                            <h3 class="font-bold text-sm sm:text-base tracking-tight">${sub.name}</h3>
-                            <span class="text-[11px] font-semibold badge-bg px-2.5 py-0.5 rounded-full">${subTodos.length}</span>
+                            <span class="w-3.5 h-3.5 rounded-md shadow-2xs" style="background-color: ${sub.color}"></span>
+                            <h3 class="font-myeongjo font-bold text-sm sm:text-base text-[#362F2D] tracking-tight">${sub.name}</h3>
+                            <span class="text-[11px] font-semibold text-[#8C7E77] bg-[#FBF9F5] border border-[#E5DFD4] px-2 py-0.5 rounded-full">${subTodos.length}</span>
                         </div>
-                        <div class="flex items-center space-x-2 text-xs">
-                            <span class="text-[11px] sub-text font-medium hidden sm:inline">터치하여 터치/입력</span>
+                        <div class="flex items-center space-x-2 text-xs text-[#8C7E77]">
+                            <span class="text-[11px] hidden sm:inline">목록 펼치기/입력</span>
                             <i id="arrow-${sub.id}" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
                         </div>
                     </div>
 
-                    <div id="content-${sub.id}" class="accordion-content border-t border-black/5">
-                        <div class="p-4 space-y-3">
+                    <div id="content-${sub.id}" class="accordion-content border-t border-[#FBF9F5]">
+                        <div class="p-4 space-y-3 bg-[#FCFBF8]">
                             <div class="flex gap-2">
                                 <input type="text" id="input-todo-${sub.id}" placeholder="${sub.name} 할 일을 입력하세요" 
                                     onkeypress="if(event.key==='Enter') addTodo('${sub.id}')"
-                                    class="flex-1 border border-black/10 rounded-2xl px-3.5 py-2 text-xs bg-white/70 focus:outline-none">
-                                <button onclick="addTodo('${sub.id}')" class="btn-primary px-4 py-2 text-xs font-semibold shadow-sm">
+                                    class="flex-1 border border-[#E5DFD4] rounded-xl px-3.5 py-2 text-xs bg-[#FFFFFF] focus:outline-none focus:border-[#8A7060]">
+                                <button onclick="addTodo('${sub.id}')" class="bg-[#8A7060] hover:bg-[#776051] text-white px-4 py-2 text-xs font-medium rounded-xl transition shadow-2xs">
                                     추가
                                 </button>
                             </div>
 
                             <div class="space-y-2" id="list-todo-${sub.id}">
-                                ${subTodos.length === 0 ? '<p class="text-xs sub-text py-3 text-center font-medium">등록된 할 일이 없습니다.</p>' : ''}
+                                ${subTodos.length === 0 ? '<p class="text-xs text-[#8C7E77] py-3 text-center font-medium">등록된 할 일이 없습니다.</p>' : ''}
                                 ${subTodos.map(todo => renderTodoItem(todo)).join('')}
                             </div>
                         </div>
@@ -762,30 +1259,30 @@
 
         function renderTodoItem(todo) {
             return `
-                <div class="bg-white/80 p-3 rounded-2xl border border-black/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 shadow-2xs">
-                    <span class="text-xs sm:text-sm font-medium text-slate-800 ${todo.status === 'O' ? 'line-through opacity-40' : ''}">${todo.text}</span>
+                <div class="bg-[#FFFFFF] p-3 rounded-xl border border-[#EAE5DC] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 shadow-2xs">
+                    <span class="text-xs sm:text-sm font-medium text-[#362F2D] ${todo.status === 'O' ? 'line-through text-[#B5AAA3]' : ''}">${todo.text}</span>
                     
                     <div class="flex items-center space-x-1.5 self-end sm:self-auto">
                         <button onclick="setTodoStatus('${todo.id}', 'O')" title="완료" 
-                            class="w-7 h-7 rounded-xl border text-xs font-bold transition flex items-center justify-center ${todo.status === 'O' ? 'bg-emerald-600 text-white border-emerald-600' : 'text-slate-400 border-slate-200 hover:border-emerald-400'}">
+                            class="w-7 h-7 rounded-lg border text-xs font-bold transition flex items-center justify-center ${todo.status === 'O' ? 'bg-[#7EA185] text-white border-[#7EA185]' : 'text-[#8C7E77] border-[#E5DFD4] hover:border-[#7EA185]'}">
                             ◯
                         </button>
                         <button onclick="setTodoStatus('${todo.id}', 'TRIANGLE')" title="진행중" 
-                            class="w-7 h-7 rounded-xl border text-xs font-bold transition flex items-center justify-center ${todo.status === 'TRIANGLE' ? 'bg-amber-600 text-white border-amber-600' : 'text-slate-400 border-slate-200 hover:border-amber-400'}">
+                            class="w-7 h-7 rounded-lg border text-xs font-bold transition flex items-center justify-center ${todo.status === 'TRIANGLE' ? 'bg-[#BE9A6B] text-white border-[#BE9A6B]' : 'text-[#8C7E77] border-[#E5DFD4] hover:border-[#BE9A6B]'}">
                             △
                         </button>
                         <button onclick="setTodoStatus('${todo.id}', 'X')" title="미완료" 
-                            class="w-7 h-7 rounded-xl border text-xs font-bold transition flex items-center justify-center ${todo.status === 'X' ? 'bg-rose-600 text-white border-rose-600' : 'text-slate-400 border-slate-200 hover:border-rose-400'}">
+                            class="w-7 h-7 rounded-lg border text-xs font-bold transition flex items-center justify-center ${todo.status === 'X' ? 'bg-[#B68282] text-white border-[#B68282]' : 'text-[#8C7E77] border-[#E5DFD4] hover:border-[#B68282]'}">
                             ✕
                         </button>
                         <button onclick="openPostponeModal('${todo.id}')" title="미루기" 
-                            class="w-7 h-7 rounded-xl border text-xs font-bold transition flex items-center justify-center ${todo.status === 'POSTPONE' ? 'bg-indigo-600 text-white border-indigo-600' : 'text-slate-400 border-slate-200 hover:border-indigo-400'}">
+                            class="w-7 h-7 rounded-lg border text-xs font-bold transition flex items-center justify-center ${todo.status === 'POSTPONE' ? 'bg-[#6A8B9C] text-white border-[#6A8B9C]' : 'text-[#8C7E77] border-[#E5DFD4] hover:border-[#6A8B9C]'}">
                             ➔
                         </button>
 
-                        <div class="h-3 w-px bg-slate-200 mx-1"></div>
+                        <div class="h-3 w-px bg-[#E5DFD4] mx-1"></div>
 
-                        <button onclick="deleteTodo('${todo.id}')" class="text-slate-300 hover:text-rose-500 p-1 transition">
+                        <button onclick="deleteTodo('${todo.id}')" class="text-[#D5CBC1] hover:text-[#B68282] p-1 transition">
                             <i class="fa-solid fa-trash-can text-xs"></i>
                         </button>
                     </div>
@@ -819,6 +1316,24 @@
 
             saveAll();
             renderTodos();
+            renderCompletionStats();
+        }
+
+        function setTodoStatus(todoId, status) {
+            const todo = todos.find(t => t.id === todoId);
+            if(todo) {
+                todo.status = status;
+                saveAll();
+                renderTodos();
+                renderCompletionStats();
+            }
+        }
+
+        function deleteTodo(todoId) {
+            todos = todos.filter(t => t.id !== todoId);
+            saveAll();
+            renderTodos();
+            renderCompletionStats();
         }
 
         function setTodoStatus(todoId, status) {
@@ -856,7 +1371,6 @@
             closeModal('modal-postpone');
         }
 
-        // ================= SUBJECT MANAGEMENT =================
         function openSubjectModal() {
             renderSubjectManageList();
             document.getElementById('modal-subject').classList.remove('hidden');
@@ -868,13 +1382,13 @@
 
             subjects.forEach(sub => {
                 const row = document.createElement('div');
-                row.className = "flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 border border-slate-100";
+                row.className = "flex items-center justify-between p-2.5 rounded-xl bg-[#FBF9F5] border border-[#EAE5DC]";
                 row.innerHTML = `
                     <div class="flex items-center space-x-2.5">
-                        <input type="color" value="${sub.color}" onchange="updateSubjectColor('${sub.id}', this.value)" class="w-6 h-6 rounded-lg cursor-pointer border-0 p-0 bg-transparent">
-                        <span class="font-semibold text-xs text-slate-800">${sub.name}</span>
+                        <input type="color" value="${sub.color}" onchange="updateSubjectColor('${sub.id}', this.value)" class="w-6 h-6 rounded-md cursor-pointer border-0 p-0 bg-transparent">
+                        <span class="font-medium text-xs text-[#362F2D]">${sub.name}</span>
                     </div>
-                    <button onclick="deleteSubject('${sub.id}')" class="text-slate-300 hover:text-rose-500 p-1 transition">
+                    <button onclick="deleteSubject('${sub.id}')" class="text-[#D5CBC1] hover:text-[#B68282] p-1 transition">
                         <i class="fa-solid fa-trash-can text-xs"></i>
                     </button>
                 `;
@@ -912,26 +1426,25 @@
             renderTodos();
         }
 
-        // ================= 3. TIMETABLE & ACADEMY =================
         function renderSchoolTimetable() {
             const body = document.getElementById('school-timetable-body');
             body.innerHTML = '';
 
             for(let period = 0; period < 7; period++) {
                 const tr = document.createElement('tr');
-                let rowHtml = `<td class="p-3 font-semibold sub-text badge-bg">${period + 1}교시</td>`;
+                let rowHtml = `<td class="p-2.5 font-medium text-[#8C7E77] bg-[#FBF9F5] border-r border-[#E5DFD4]">${period + 1}교시</td>`;
 
                 for(let day = 0; day < 5; day++) {
                     const subjectName = schoolTimetable[period][day] || '';
                     const matchedSubject = subjects.find(s => s.name === subjectName);
                     const bgColor = matchedSubject ? matchedSubject.color + '20' : 'transparent';
-                    const textColor = matchedSubject ? matchedSubject.color : 'currentColor';
+                    const textColor = matchedSubject ? matchedSubject.color : '#362F2D';
 
                     rowHtml += `
                         <td onclick="openSchoolCellModal(${day}, ${period})" 
-                            class="p-3 cursor-pointer hover:bg-black/5 transition font-semibold"
+                            class="p-2.5 border-r border-[#E5DFD4] last:border-r-0 cursor-pointer hover:bg-[#FBF9F5] transition font-medium"
                             style="background-color: ${bgColor}; color: ${textColor}">
-                            ${subjectName || '<span class="opacity-40 font-normal text-[11px]">+ 입력</span>'}
+                            ${subjectName || '<span class="opacity-30 font-normal text-[11px]">+ 입력</span>'}
                         </td>
                     `;
                 }
@@ -963,30 +1476,30 @@
             container.innerHTML = '';
 
             if (academies.length === 0) {
-                container.innerHTML = `<p class="text-xs sub-text col-span-full py-4 text-center font-medium">등록된 학원 일정이 없습니다.</p>`;
+                container.innerHTML = `<p class="text-xs text-[#8C7E77] col-span-full py-4 text-center font-medium">등록된 학원 일정이 없습니다.</p>`;
                 return;
             }
 
             academies.forEach(ac => {
                 const card = document.createElement('div');
-                card.className = "bg-white/80 p-4 rounded-2xl border border-black/10 shadow-2xs flex justify-between items-start";
+                card.className = "bg-[#FFFFFF] p-4 rounded-xl border border-[#EAE5DC] shadow-2xs flex justify-between items-start";
                 card.style.borderLeft = `4px solid ${ac.color}`;
 
                 card.innerHTML = `
                     <div>
-                        <h4 class="font-bold text-slate-900 text-sm tracking-tight">${ac.name}</h4>
+                        <h4 class="font-myeongjo font-bold text-[#362F2D] text-sm tracking-tight">${ac.name}</h4>
                         <div class="flex flex-wrap gap-1 mt-1.5 mb-2">
-                            ${ac.days.map(d => `<span class="text-[10px] bg-black/5 text-slate-700 font-semibold px-2 py-0.5 rounded-md">${d}요일</span>`).join('')}
+                            ${ac.days.map(d => `<span class="text-[10px] bg-[#FBF9F5] text-[#6E615A] font-medium px-2 py-0.5 rounded-md border border-[#E5DFD4]">${d}요일</span>`).join('')}
                         </div>
-                        <p class="text-xs sub-text font-medium">
-                            <i class="fa-regular fa-clock mr-1"></i>${ac.start} ~ ${ac.end}
+                        <p class="text-xs text-[#8C7E77]">
+                            <i class="fa-regular fa-clock mr-1 opacity-70"></i>${ac.start} ~ ${ac.end}
                         </p>
                     </div>
                     <div class="flex space-x-1">
-                        <button onclick="editAcademy('${ac.id}')" class="text-slate-400 hover:text-amber-700 p-1 transition">
+                        <button onclick="editAcademy('${ac.id}')" class="text-[#D5CBC1] hover:text-[#8A7060] p-1 transition">
                             <i class="fa-solid fa-pen text-xs"></i>
                         </button>
-                        <button onclick="deleteAcademy('${ac.id}')" class="text-slate-400 hover:text-rose-500 p-1 transition">
+                        <button onclick="deleteAcademy('${ac.id}')" class="text-[#D5CBC1] hover:text-[#B68282] p-1 transition">
                             <i class="fa-solid fa-trash-can text-xs"></i>
                         </button>
                     </div>
@@ -1001,13 +1514,17 @@
             document.getElementById('academy-name').value = '';
             document.getElementById('academy-start').value = '18:00';
             document.getElementById('academy-end').value = '20:00';
-            document.querySelectorAll('.day-btn').forEach(btn => btn.classList.remove('bg-amber-800', 'text-white'));
+            document.querySelectorAll('.day-btn').forEach(btn => {
+                btn.classList.remove('bg-[#8A7060]', 'text-white');
+                btn.classList.add('bg-[#FFFFFF]');
+            });
             document.getElementById('modal-academy').classList.remove('hidden');
         }
 
         function toggleDaySelection(btn) {
-            btn.classList.toggle('bg-amber-800');
+            btn.classList.toggle('bg-[#8A7060]');
             btn.classList.toggle('text-white');
+            btn.classList.toggle('bg-[#FFFFFF]');
         }
 
         function saveAcademy() {
@@ -1018,7 +1535,7 @@
             const color = document.getElementById('academy-color').value;
 
             const selectedDays = [];
-            document.querySelectorAll('.day-btn.bg-amber-800').forEach(btn => {
+            document.querySelectorAll('.day-btn.bg-\\[\\#8A7060\\]').forEach(btn => {
                 selectedDays.push(btn.getAttribute('data-day'));
             });
 
@@ -1059,9 +1576,11 @@
             document.querySelectorAll('.day-btn').forEach(btn => {
                 const day = btn.getAttribute('data-day');
                 if(ac.days.includes(day)) {
-                    btn.classList.add('bg-amber-800', 'text-white');
+                    btn.classList.add('bg-[#8A7060]', 'text-white');
+                    btn.classList.remove('bg-[#FFFFFF]');
                 } else {
-                    btn.classList.remove('bg-amber-800', 'text-white');
+                    btn.classList.remove('bg-[#8A7060]', 'text-white');
+                    btn.classList.add('bg-[#FFFFFF]');
                 }
             });
 
