@@ -8,11 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome 아이콘 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Pretendard & 감성 명조 폰트 -->
+    <!-- Pretendard 폰트 -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -28,7 +25,8 @@
                         'border-paper': '#EAE5DC'
                     },
                     fontFamily: {
-                        myeongjo: ['"Gowun Batang"', '"Nanum Myeongjo"', 'serif'],
+                        myeongjo: ['OngleipKonkon', 'serif'],
+                        title: ['OngleipKonkon', 'serif'],
                         sans: ['"Pretendard Variable"', 'Pretendard', 'sans-serif']
                     }
                 }
@@ -36,11 +34,32 @@
         }
     </script>
     <style>
+        /* 커스텀 폰트 온글잎 콩콩 (제목용) */
+        @font-face {
+            font-family: 'OngleipKonkon';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2412-1@1.0/Ownglyph_corncorn-Rg.woff2') format('woff2');
+            font-weight: normal;
+            font-display: swap;
+        }
+
+        /* 커스텀 폰트 이서윤체 (본문용) */
+        @font-face {
+            font-family: 'IsYun';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
+            font-weight: normal;
+            font-display: swap;
+        }
+
         body {
             background-color: #FBF9F5;
             color: #362F2D;
-            font-family: "Pretendard Variable", Pretendard, sans-serif;
+            font-family: 'IsYun', "Pretendard Variable", Pretendard, sans-serif;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* 제목 전용 폰트 클래스 */
+        .font-myeongjo, .font-title {
+            font-family: 'OngleipKonkon', serif;
         }
 
         /* 다이어리 카드 스타일 */
@@ -63,10 +82,6 @@
             border-radius: 20px;
             transform: rotate(-0.5deg) translate(-2px, 3px);
             z-index: -1;
-        }
-
-        .font-myeongjo {
-            font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
         }
 
         /* 다이어리 인덱스 탭 버튼 */
@@ -170,11 +185,11 @@
         <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
                 <div class="flex items-center space-x-3">
-                    <div class="w-9 h-9 rounded-xl bg-[#8A7060] text-[#FFFDF8] flex items-center justify-center font-myeongjo font-bold text-base shadow-sm">
+                    <div class="w-9 h-9 rounded-xl bg-[#8A7060] text-[#FFFDF8] flex items-center justify-center font-title font-bold text-lg shadow-sm">
                         日
                     </div>
                     <div>
-                        <h1 class="font-myeongjo font-bold text-base sm:text-lg tracking-tight text-[#362F2D]">MY STUDY DIARY</h1>
+                        <h1 class="font-title font-bold text-xl sm:text-2xl tracking-wide text-[#362F2D]">MY STUDY DIARY</h1>
                         <p class="text-[11px] text-[#8C7E77] font-medium" id="current-date-display">2026년 11월 9일 월요일</p>
                     </div>
                 </div>
@@ -210,7 +225,7 @@
                 <!-- 헤더 & 주간/월간 필터 -->
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-[#F5F1EA] pb-4">
                     <div>
-                        <h2 class="font-myeongjo font-bold text-base sm:text-lg text-[#362F2D] flex items-center">
+                        <h2 class="font-title font-bold text-lg sm:text-xl text-[#362F2D] flex items-center">
                             <i class="fa-solid fa-chart-line mr-2 text-[#8A7060]"></i>학습 통계 종합 리포트
                         </h2>
                         <p class="text-xs text-[#8C7E77] mt-0.5">선택한 기간 동안의 과목별 순공 시간과 할 일 달성률을 분석합니다.</p>
@@ -234,7 +249,7 @@
                             <i class="fa-regular fa-clock mr-1.5 text-[#8A7060]"></i>기간 내 누적 순공 시간
                         </span>
                         <div class="my-4">
-                            <span id="period-total-time" class="font-myeongjo font-bold text-3xl sm:text-4xl text-[#8A7060]">0시간 0분</span>
+                            <span id="period-total-time" class="font-title font-bold text-3xl sm:text-4xl text-[#8A7060]">0시간 0분</span>
                             <span class="block text-[11px] text-[#8C7E77] font-medium mt-1" id="period-time-sub">공부 타이머로 기록된 실시간 데이터</span>
                         </div>
                         <div class="w-full bg-[#EFECE6] p-2 rounded-xl text-[11px] text-[#6E615A] border border-[#E5DFD4]">
@@ -245,11 +260,11 @@
                     <!-- 2. 전체 할 일 달성률 종합 카드 -->
                     <div class="bg-[#FBF9F5] p-5 rounded-2xl border border-[#E5DFD4] flex flex-col justify-between items-center text-center">
                         <span class="text-xs font-semibold text-[#8C7E77] uppercase tracking-wider flex items-center">
-                            <i class="fa-solid fa-[#8A7060] fa-list-check mr-1.5 text-[#8A7060]"></i>전체 할 일 달성률
+                            <i class="fa-solid fa-list-check mr-1.5 text-[#8A7060]"></i>전체 할 일 달성률
                         </span>
                         <div class="my-3 relative flex items-center justify-center">
                             <div class="text-center">
-                                <span id="total-completion-rate" class="font-myeongjo font-bold text-3xl sm:text-4xl text-[#8A7060]">0%</span>
+                                <span id="total-completion-rate" class="font-title font-bold text-3xl sm:text-4xl text-[#8A7060]">0%</span>
                                 <span class="block text-[11px] text-[#8C7E77] font-medium mt-1" id="total-completion-sub">0개 중 0개 완료</span>
                             </div>
                         </div>
@@ -263,22 +278,22 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                     <div class="bg-white p-3.5 rounded-xl border border-[#EAE5DC] text-center flex flex-col justify-center">
                         <span class="text-xs text-[#7EA185] font-bold block mb-1">◯ 완료</span>
-                        <span id="stat-count-o" class="font-myeongjo font-bold text-xl text-[#362F2D]">0</span>
+                        <span id="stat-count-o" class="font-title font-bold text-2xl text-[#362F2D]">0</span>
                         <span class="text-[10px] text-[#8C7E77] mt-0.5">건</span>
                     </div>
                     <div class="bg-white p-3.5 rounded-xl border border-[#EAE5DC] text-center flex flex-col justify-center">
                         <span class="text-xs text-[#BE9A6B] font-bold block mb-1">△ 진행중</span>
-                        <span id="stat-count-triangle" class="font-myeongjo font-bold text-xl text-[#362F2D]">0</span>
+                        <span id="stat-count-triangle" class="font-title font-bold text-2xl text-[#362F2D]">0</span>
                         <span class="text-[10px] text-[#8C7E77] mt-0.5">건</span>
                     </div>
                     <div class="bg-white p-3.5 rounded-xl border border-[#EAE5DC] text-center flex flex-col justify-center">
                         <span class="text-xs text-[#B68282] font-bold block mb-1">✕ 미완료</span>
-                        <span id="stat-count-x" class="font-myeongjo font-bold text-xl text-[#362F2D]">0</span>
+                        <span id="stat-count-x" class="font-title font-bold text-2xl text-[#362F2D]">0</span>
                         <span class="text-[10px] text-[#8C7E77] mt-0.5">건</span>
                     </div>
                     <div class="bg-white p-3.5 rounded-xl border border-[#EAE5DC] text-center flex flex-col justify-center">
                         <span class="text-xs text-[#6A8B9C] font-bold block mb-1">➔ 미루기</span>
-                        <span id="stat-count-postpone" class="font-myeongjo font-bold text-xl text-[#362F2D]">0</span>
+                        <span id="stat-count-postpone" class="font-title font-bold text-2xl text-[#362F2D]">0</span>
                         <span class="text-[10px] text-[#8C7E77] mt-0.5">건</span>
                     </div>
                 </div>
@@ -287,7 +302,7 @@
                 <div class="space-y-6 pt-4 border-t border-[#F5F1EA]">
                     <!-- 과목별 순공 시간 통계 -->
                     <div>
-                        <h3 class="font-myeongjo font-bold text-sm text-[#362F2D] mb-3 flex items-center">
+                        <h3 class="font-title font-bold text-base text-[#362F2D] mb-3 flex items-center">
                             <i class="fa-solid fa-stopwatch text-[#8A7060] mr-2"></i>과목별 누적 공부시간
                         </h3>
                         <div id="subject-time-bars" class="space-y-3.5">
@@ -297,7 +312,7 @@
 
                     <!-- 과목별 상세 달성률 -->
                     <div class="pt-4 border-t border-[#F5F1EA]">
-                        <h3 class="font-myeongjo font-bold text-sm text-[#362F2D] mb-3 flex items-center">
+                        <h3 class="font-title font-bold text-base text-[#362F2D] mb-3 flex items-center">
                             <i class="fa-solid fa-check-double text-[#8A7060] mr-2"></i>과목별 할 일 달성률
                         </h3>
                         <div id="subject-completion-bars" class="space-y-3.5">
@@ -349,7 +364,7 @@
                     <!-- 디스플레이 타이머 -->
                     <div class="py-4">
                         <span id="pomo-status-badge" class="hidden text-xs bg-[#8A7060] text-white px-3 py-1 rounded-full font-medium mb-2 inline-block">25분 집중 시간</span>
-                        <div id="timer-display" class="font-myeongjo font-bold text-5xl sm:text-6xl tracking-tight text-[#362F2D]">
+                        <div id="timer-display" class="font-title font-bold text-5xl sm:text-6xl tracking-tight text-[#362F2D]">
                             00:00:00
                         </div>
                     </div>
@@ -368,7 +383,7 @@
                 <!-- 오늘 과목별 통계 요약 카드 -->
                 <div class="paper-card p-6 flex flex-col justify-between">
                     <div>
-                        <h3 class="font-myeongjo font-bold text-base text-[#362F2D] border-b border-[#F5F1EA] pb-3 flex items-center justify-between">
+                        <h3 class="font-title font-bold text-lg text-[#362F2D] border-b border-[#F5F1EA] pb-3 flex items-center justify-between">
                             <span><i class="fa-solid fa-chart-pie mr-2 text-[#8A7060]"></i>오늘 공부 통계</span>
                             <span class="text-xs font-sans font-normal text-[#8C7E77]" id="today-stat-date"></span>
                         </h3>
@@ -376,7 +391,7 @@
                         <!-- 총 공부시간 -->
                         <div class="my-4 p-4 bg-[#F5F1EA] rounded-xl text-center border border-[#E5DFD4]">
                             <span class="text-xs text-[#8C7E77] font-medium block mb-1">오늘의 총 순공 시간</span>
-                            <span id="total-study-time-display" class="font-myeongjo font-bold text-2xl text-[#8A7060]">0시간 0분 0초</span>
+                            <span id="total-study-time-display" class="font-title font-bold text-2xl text-[#8A7060]">0시간 0분 0초</span>
                         </div>
 
                         <!-- 과목별 리스트 -->
@@ -397,7 +412,7 @@
             <!-- 감성 D-Day 배너 카드 -->
             <div class="paper-card paper-card-stacked p-5 sm:p-6 border border-[#EAE5DC]">
                 <div class="flex justify-between items-center mb-3">
-                    <h2 class="font-myeongjo font-bold text-sm sm:text-base flex items-center text-[#362F2D]">
+                    <h2 class="font-title font-bold text-base sm:text-lg flex items-center text-[#362F2D]">
                         <i class="fa-solid fa-bookmark mr-2 text-[#8A7060]"></i> 주요 일정 D-DAY
                     </h2>
                     <button onclick="openDdayModal()" class="text-xs bg-[#F5F1EA] hover:bg-[#EFECE6] text-[#6E615A] border border-[#E5DFD4] px-3 py-1.5 rounded-xl transition font-medium">
@@ -414,7 +429,7 @@
                 <!-- 월/년 헤더 -->
                 <div class="flex justify-between items-center mb-6 border-b border-[#F5F1EA] pb-4">
                     <div class="flex items-center space-x-3">
-                        <h2 id="calendar-month-year" class="font-myeongjo font-bold text-xl sm:text-2xl text-[#362F2D]">2026년 11월</h2>
+                        <h2 id="calendar-month-year" class="font-title font-bold text-2xl sm:text-3xl text-[#362F2D]">2026년 11월</h2>
                         <button onclick="goToToday()" class="text-xs bg-[#F5F1EA] text-[#6E615A] px-2.5 py-1 rounded-lg border border-[#E5DFD4] hover:bg-[#EFECE6] font-medium transition">
                             오늘
                         </button>
@@ -451,7 +466,7 @@
         <section id="view-todo" class="tab-view hidden space-y-5">
             <div class="paper-card p-5 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                 <div>
-                    <h2 class="font-myeongjo font-bold text-base text-[#362F2D]">과목별 학습 할 일</h2>
+                    <h2 class="font-title font-bold text-lg text-[#362F2D]">과목별 학습 할 일</h2>
                     <p class="text-xs text-[#8C7E77] mt-0.5">과목 카드를 누르면 하단에 입력창과 진행 상태(◯ △ ✕ ➔) 변경 메뉴가 나타납니다.</p>
                 </div>
                 <button onclick="openSubjectModal()" class="self-start sm:self-auto px-3.5 py-2 bg-[#8A7060] hover:bg-[#776051] text-[#FFFFFF] text-xs font-medium rounded-xl transition shadow-xs flex items-center">
@@ -470,7 +485,7 @@
             <div class="paper-card p-5 sm:p-6">
                 <div class="flex justify-between items-center mb-4 border-b border-[#F5F1EA] pb-3">
                     <div>
-                        <h2 class="font-myeongjo font-bold text-base text-[#362F2D] flex items-center">
+                        <h2 class="font-title font-bold text-lg text-[#362F2D] flex items-center">
                             <i class="fa-solid fa-graduation-cap mr-2 text-[#8A7060]"></i>학교 주간 시간표
                         </h2>
                         <p class="text-xs text-[#8C7E77] mt-0.5">각 교시 칸을 눌러 과목명을 직접 입력하세요.</p>
@@ -499,7 +514,7 @@
             <div class="paper-card p-5 sm:p-6">
                 <div class="flex justify-between items-center mb-4 border-b border-[#F5F1EA] pb-3">
                     <div>
-                        <h2 class="font-myeongjo font-bold text-base text-[#362F2D] flex items-center">
+                        <h2 class="font-title font-bold text-lg text-[#362F2D] flex items-center">
                             <i class="fa-regular fa-clock mr-2 text-[#8A7060]"></i>학원 및 과외 수강 일정
                         </h2>
                         <p class="text-xs text-[#8C7E77] mt-0.5">자율 학습 외 정기 수강 일정을 입력/수정할 수 있습니다.</p>
@@ -520,7 +535,7 @@
     <div id="modal-subject" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
         <div class="paper-card max-w-sm w-full p-6 space-y-4 shadow-xl">
             <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2.5">
-                <h3 class="font-myeongjo font-bold text-base text-[#362F2D]">과목 구성 및 색상 지정</h3>
+                <h3 class="font-title font-bold text-lg text-[#362F2D]">과목 구성 및 색상 지정</h3>
                 <button onclick="closeModal('modal-subject')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
@@ -540,7 +555,7 @@
     <div id="modal-postpone" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
         <div class="paper-card max-w-xs w-full p-5 space-y-4 shadow-xl">
             <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2">
-                <h3 class="font-myeongjo font-bold text-base text-[#362F2D]">할 일 미루기</h3>
+                <h3 class="font-title font-bold text-lg text-[#362F2D]">할 일 미루기</h3>
                 <button onclick="closeModal('modal-postpone')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
@@ -557,7 +572,7 @@
     <div id="modal-academy" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
         <div class="paper-card max-w-sm w-full p-6 space-y-4 shadow-xl">
             <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2.5">
-                <h3 id="academy-modal-title" class="font-myeongjo font-bold text-base text-[#362F2D]">학원 일정 추가</h3>
+                <h3 id="academy-modal-title" class="font-title font-bold text-lg text-[#362F2D]">학원 일정 추가</h3>
                 <button onclick="closeModal('modal-academy')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
@@ -605,7 +620,7 @@
     <div id="modal-dday" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
         <div class="paper-card max-w-xs w-full p-5 space-y-4 shadow-xl">
             <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2">
-                <h3 class="font-myeongjo font-bold text-base text-[#362F2D]">D-Day 일정 추가</h3>
+                <h3 class="font-title font-bold text-lg text-[#362F2D]">D-Day 일정 추가</h3>
                 <button onclick="closeModal('modal-dday')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
@@ -630,7 +645,7 @@
     <div id="modal-school-cell" class="fixed inset-0 bg-[#362F2D]/30 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
         <div class="paper-card max-w-xs w-full p-5 space-y-4 shadow-xl">
             <div class="flex justify-between items-center border-b border-[#F5F1EA] pb-2">
-                <h3 class="font-myeongjo font-bold text-base text-[#362F2D]">교시 과목 입력</h3>
+                <h3 class="font-title font-bold text-lg text-[#362F2D]">교시 과목 입력</h3>
                 <button onclick="closeModal('modal-school-cell')" class="text-[#8C7E77] hover:text-[#362F2D]">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
@@ -854,7 +869,7 @@
                             <span class="text-[#362F2D]">${sub.name}</span>
                             <span class="text-[11px] text-[#8C7E77] font-normal">(${subDone}/${subTotal} 완료)</span>
                         </div>
-                        <span class="font-myeongjo font-bold text-[#8A7060] text-sm">${subRate}%</span>
+                        <span class="font-title font-bold text-[#8A7060] text-base">${subRate}%</span>
                     </div>
                     <div class="w-full bg-[#EFECE6] h-2 rounded-full overflow-hidden border border-[#E5DFD4]">
                         <div class="h-full rounded-full transition-all duration-500" style="width: ${subRate}%; background-color: ${sub.color}"></div>
@@ -1182,7 +1197,7 @@
                 card.innerHTML = `
                     <div>
                         <span class="text-[11px] block font-medium truncate max-w-[90px] text-[#8C7E77]">${d.title}</span>
-                        <span class="text-base sm:text-lg font-myeongjo font-bold text-[#8A7060] tracking-tight">${ddayStr}</span>
+                        <span class="text-lg sm:text-xl font-title font-bold text-[#8A7060] tracking-tight">${ddayStr}</span>
                     </div>
                     <button onclick="deleteDday('${d.id}')" class="text-[#B5AAA3] hover:text-[#C06060] opacity-0 group-hover:opacity-100 transition text-xs p-0.5">
                         <i class="fa-solid fa-xmark"></i>
@@ -1226,7 +1241,7 @@
                     <div onclick="toggleAccordion('${sub.id}')" class="p-4 flex items-center justify-between cursor-pointer select-none hover:bg-[#FBF9F5] transition">
                         <div class="flex items-center space-x-3">
                             <span class="w-3.5 h-3.5 rounded-md shadow-2xs" style="background-color: ${sub.color}"></span>
-                            <h3 class="font-myeongjo font-bold text-sm sm:text-base text-[#362F2D] tracking-tight">${sub.name}</h3>
+                            <h3 class="font-title font-bold text-base sm:text-lg text-[#362F2D] tracking-tight">${sub.name}</h3>
                             <span class="text-[11px] font-semibold text-[#8C7E77] bg-[#FBF9F5] border border-[#E5DFD4] px-2 py-0.5 rounded-full">${subTodos.length}</span>
                         </div>
                         <div class="flex items-center space-x-2 text-xs text-[#8C7E77]">
@@ -1336,21 +1351,6 @@
             renderCompletionStats();
         }
 
-        function setTodoStatus(todoId, status) {
-            const todo = todos.find(t => t.id === todoId);
-            if(todo) {
-                todo.status = status;
-                saveAll();
-                renderTodos();
-            }
-        }
-
-        function deleteTodo(todoId) {
-            todos = todos.filter(t => t.id !== todoId);
-            saveAll();
-            renderTodos();
-        }
-
         function openPostponeModal(todoId) {
             postponingTodoId = todoId;
             document.getElementById('modal-postpone').classList.remove('hidden');
@@ -1456,7 +1456,7 @@
         function openSchoolCellModal(day, period) {
             document.getElementById('cell-day-index').value = day;
             document.getElementById('cell-period-index').value = period;
-            document.getElementById('cell-subject-name').value = schoolTimetable[period][day] || '';
+            document.getElementById('cell-[#362F2D]').value = schoolTimetable[period][day] || '';
             document.getElementById('modal-school-cell').classList.remove('hidden');
         }
 
@@ -1487,7 +1487,7 @@
 
                 card.innerHTML = `
                     <div>
-                        <h4 class="font-myeongjo font-bold text-[#362F2D] text-sm tracking-tight">${ac.name}</h4>
+                        <h4 class="font-title font-bold text-[#362F2D] text-base tracking-tight">${ac.name}</h4>
                         <div class="flex flex-wrap gap-1 mt-1.5 mb-2">
                             ${ac.days.map(d => `<span class="text-[10px] bg-[#FBF9F5] text-[#6E615A] font-medium px-2 py-0.5 rounded-md border border-[#E5DFD4]">${d}요일</span>`).join('')}
                         </div>
